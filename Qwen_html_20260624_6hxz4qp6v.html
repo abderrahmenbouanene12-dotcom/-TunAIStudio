@@ -1,0 +1,2910 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TunAIStudio | Learn HTML & Generate Code with AI</title>
+<meta name="description" content="Tunisian platform to learn HTML step by step with AI code generation">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- ============================================
+     CSS STYLES - Complete Design System
+     ============================================ -->
+<style>
+/* ===== CSS Variables & Themes ===== */
+:root {
+    --primary: #6366f1;
+    --primary-light: #818cf8;
+    --accent: #ec4899;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+    --premium: linear-gradient(135deg, #fbbf24, #f59e0b);
+    --font-main: 'Cairo', sans-serif;
+    --font-code: 'JetBrains Mono', monospace;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,0.2);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+    --bg: #0a0e1a;
+    --bg-alt: #0f1420;
+    --card: rgba(20, 25, 40, 0.85);
+    --card-solid: #141928;
+    --glass: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+    --text: #ffffff;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+    --code-bg: #0f111a;
+    --input-bg: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] {
+    --bg: #f8fafc;
+    --bg-alt: #f1f5f9;
+    --card: rgba(255, 255, 255, 0.9);
+    --card-solid: #ffffff;
+    --glass: rgba(0, 0, 0, 0.03);
+    --border: rgba(0, 0, 0, 0.1);
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --code-bg: #1e293b;
+    --input-bg: rgba(0, 0, 0, 0.04);
+}
+
+/* ===== Reset & Base ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-main);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* ===== Background Effects ===== */
+.bg-effects {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: 
+        radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.15), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.1), transparent 30%);
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-alt); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-light); }
+
+/* ===== Navbar ===== */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+}
+.nav-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-decoration: none;
+    color: var(--text);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.logo:hover { transform: scale(1.05); }
+.logo-icon { font-size: 1.8rem; filter: drop-shadow(0 0 10px var(--primary)); }
+.logo span {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* ===== Buttons ===== */
+.btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: inherit;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.btn-primary {
+    background: var(--gradient);
+    color: white;
+    box-shadow: 0 4px 15px rgba(99,102,241,0.3);
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99,102,241,0.4);
+}
+.btn-ghost {
+    background: var(--glass);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+.btn-ghost:hover {
+    background: var(--border);
+    border-color: var(--primary);
+}
+.btn-premium {
+    background: var(--premium);
+    color: white;
+    box-shadow: 0 4px 15px rgba(251,191,36,0.3);
+}
+.btn-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(251,191,36,0.4);
+}
+.btn-success { background: var(--success); color: white; }
+.btn-success:hover { filter: brightness(1.1); }
+.btn-danger { background: var(--danger); color: white; }
+.btn-danger:hover { filter: brightness(1.1); }
+.btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+.btn-lg { padding: 0.8rem 1.6rem; font-size: 1rem; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+/* ===== Select & Toggle ===== */
+.lang-select, .theme-toggle {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+.lang-select:hover, .theme-toggle:hover {
+    border-color: var(--primary);
+    background: var(--border);
+}
+.lang-select option { background: var(--card-solid); color: var(--text); }
+
+/* ===== User Pill ===== */
+.user-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.8rem 0.3rem 0.3rem;
+    border-radius: 50px;
+}
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 0.9rem;
+}
+.badge-pro {
+    background: var(--premium);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    margin: 0 4px;
+    letter-spacing: 0.5px;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+    padding: 4rem 1.5rem;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+.hero-gradient {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+/* ===== Search Box ===== */
+.search-box {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+.search-box:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+}
+.search-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-size: 1rem;
+    padding: 0.8rem;
+    font-family: inherit;
+}
+.search-box input::placeholder { color: var(--text-muted); }
+.search-box .search-icon {
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+/* ===== Chips ===== */
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.chip {
+    padding: 0.4rem 0.9rem;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+    font-weight: 500;
+}
+.chip:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* ===== Usage Bar ===== */
+.usage-bar-container {
+    max-width: 700px;
+    margin: 1.5rem auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.usage-info {
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.usage-info strong {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.1rem;
+}
+.usage-track {
+    flex: 1;
+    height: 8px;
+    background: var(--glass);
+    border-radius: 4px;
+    overflow: hidden;
+    min-width: 150px;
+}
+.usage-fill {
+    height: 100%;
+    background: var(--gradient);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+.usage-fill.warning { background: var(--warning); }
+.usage-fill.danger { background: var(--danger); }
+
+/* ===== Tabs ===== */
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 1.5rem;
+    margin-bottom: 2rem;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.tab {
+    padding: 0.7rem 1.5rem;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    font-family: inherit;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.tab:hover {
+    color: var(--text);
+    border-color: var(--primary);
+    background: var(--border);
+}
+.tab.active {
+    background: var(--gradient);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(99,102,241,0.3);
+}
+
+/* ===== Sections ===== */
+.section {
+    display: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+    animation: fadeUp 0.4s ease;
+}
+.section.active { display: block; }
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+.section-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+}
+.section-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* ===== Progress Overview ===== */
+.progress-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+.stat-mini { text-align: center; }
+.stat-mini .val {
+    font-size: 1.8rem;
+    font-weight: 900;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.stat-mini .lbl {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+    font-weight: 600;
+}
+
+/* ===== Lesson Cards ===== */
+.lesson-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    transition: var(--transition);
+}
+.lesson-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.lesson-card.completed { border-color: var(--success); }
+.lesson-card.completed::after {
+    content: '✓';
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--success);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(16,185,129,0.4);
+}
+.lesson-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--gradient);
+    border-radius: 50%;
+    font-weight: 800;
+    color: white;
+    box-shadow: 0 4px 10px rgba(99,102,241,0.4);
+    margin-bottom: 0.8rem;
+}
+.lesson-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.lesson-badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.lesson-badge.beginner { background: rgba(16,185,129,0.1); color: var(--success); }
+.lesson-badge.intermediate { background: rgba(245,158,11,0.1); color: var(--warning); }
+.lesson-badge.advanced { background: rgba(236,72,153,0.1); color: var(--accent); }
+.lesson-content {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+.lesson-content code {
+    background: var(--input-bg);
+    color: var(--primary-light);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: var(--font-code);
+    font-size: 0.85em;
+}
+.lesson-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+.code-preview, .live-preview {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+.code-header, .preview-header {
+    background: rgba(255,255,255,0.05);
+    padding: 0.5rem 0.8rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.code-preview pre {
+    background: var(--code-bg);
+    color: #a5b4fc;
+    padding: 1rem;
+    font-family: var(--font-code);
+    font-size: 0.75rem;
+    overflow-x: auto;
+    margin: 0;
+    line-height: 1.5;
+    max-height: 200px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.live-preview iframe {
+    width: 100%;
+    height: 200px;
+    border: none;
+    background: white;
+}
+.exercise {
+    background: rgba(99,102,241,0.08);
+    border: 1px dashed var(--primary);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.exercise strong { color: var(--primary-light); }
+.lesson-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+/* ===== Snippet Cards (Enhanced) ===== */
+.snippet-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.snippet-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+}
+.snippet-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+.snippet-card:hover::before { transform: scaleX(1); }
+.snippet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+.snippet-icon {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 8px rgba(99,102,241,0.3));
+}
+.snippet-level {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.level-beginner { background: rgba(16,185,129,0.1); color: var(--success); border: 1px solid rgba(16,185,129,0.3); }
+.level-intermediate { background: rgba(245,158,11,0.1); color: var(--warning); border: 1px solid rgba(245,158,11,0.3); }
+.level-advanced { background: rgba(236,72,153,0.1); color: var(--accent); border: 1px solid rgba(236,72,153,0.3); }
+.snippet-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+.snippet-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex: 1;
+}
+.snippet-preview {
+    background: var(--code-bg);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    max-height: 120px;
+    overflow: hidden;
+    position: relative;
+}
+.snippet-preview::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(transparent, var(--code-bg));
+    pointer-events: none;
+}
+.snippet-preview pre {
+    font-family: var(--font-code);
+    font-size: 0.7rem;
+    color: #a5b4fc;
+    direction: ltr;
+    text-align: left;
+    margin: 0;
+    white-space: pre-wrap;
+    line-height: 1.4;
+}
+.snippet-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+}
+.snippet-tag {
+    padding: 2px 8px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    font-family: var(--font-code);
+}
+.snippet-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+.snippet-actions .btn { flex: 1; }
+
+/* ===== TunAI Result ===== */
+.ai-result {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    display: none;
+}
+.ai-result.visible {
+    display: block;
+    animation: fadeUp 0.4s ease;
+}
+.ai-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+.ai-title {
+    color: var(--primary-light);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.ai-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+.code-output {
+    background: rgba(0,0,0,0.3);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin: 1rem 0;
+    font-family: var(--font-code);
+    font-size: 0.8rem;
+    color: #a5b4fc;
+    max-height: 350px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    direction: ltr;
+    text-align: left;
+}
+.preview-frame {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 1rem;
+}
+.preview-frame iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+    border-radius: var(--radius-sm);
+}
+.preview-label {
+    font-size: 0.75rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ===== Grid & Cards ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    text-align: center;
+    transition: var(--transition);
+}
+.card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
+    filter: drop-shadow(0 0 8px rgba(99,102,241,0.3));
+}
+.card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+}
+.card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* ===== Stats Grid ===== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    text-align: center;
+    transition: var(--transition);
+}
+.stat-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+}
+.stat-card .icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+.stat-card .value {
+    font-size: 2rem;
+    font-weight: 900;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.stat-card .label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+    font-weight: 600;
+}
+
+/* ===== List Items ===== */
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    transition: var(--transition);
+}
+.list-item:hover {
+    border-color: var(--primary);
+    background: var(--border);
+}
+.list-item-info {
+    flex: 1;
+    min-width: 0;
+}
+.list-item-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.2rem;
+}
+.list-item-meta {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+.list-item-actions {
+    display: flex;
+    gap: 0.3rem;
+}
+
+/* ===== Dashboard Section Panels ===== */
+.dashboard-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.dashboard-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.dashboard-panel-header h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.empty-state {
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* ===== Modals ===== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+.modal-overlay.visible {
+    display: flex;
+    animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+}
+.modal-large { max-width: 560px; }
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.modal-header h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+.close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+.close-btn:hover {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger);
+    transform: rotate(90deg);
+}
+
+/* ===== Auth Tabs ===== */
+.auth-tabs {
+    display: flex;
+    background: var(--glass);
+    border-radius: var(--radius-md);
+    padding: 4px;
+    margin-bottom: 1.5rem;
+}
+.auth-tab {
+    flex: 1;
+    padding: 0.7rem;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+.auth-tab.active {
+    background: var(--gradient);
+    color: white;
+}
+
+/* ===== Forms ===== */
+.form-group { margin-bottom: 1rem; }
+.form-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+}
+.form-input {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+}
+.form-input::placeholder { color: var(--text-muted); }
+
+/* ===== Google Button ===== */
+.google-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: white;
+    color: #333;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: inherit;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+.google-btn:hover {
+    background: #f5f5f5;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ===== Premium Plans ===== */
+.premium-plan {
+    background: var(--premium);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    color: white;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(251,191,36,0.3);
+}
+.premium-plan::before {
+    content: '⭐';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 100px;
+    opacity: 0.1;
+    pointer-events: none;
+}
+.free-plan {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+.plan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.plan-header h3 { font-size: 1.2rem; font-weight: 700; }
+.plan-price { font-size: 1.5rem; font-weight: 900; }
+.plan-features {
+    list-style: none;
+    font-size: 0.85rem;
+    display: grid;
+    gap: 0.4rem;
+    padding: 0;
+}
+.plan-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ===== Toast Notifications ===== */
+.toast-container {
+    position: fixed;
+    top: 80px;
+    left: 1.5rem;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+    max-width: 320px;
+}
+.toast {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.8rem 1.2rem;
+    color: var(--text);
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-md);
+    animation: slideIn 0.3s ease;
+    pointer-events: auto;
+    min-width: 250px;
+    border-right: 3px solid var(--primary);
+    backdrop-filter: blur(10px);
+}
+.toast.success { border-right-color: var(--success); }
+.toast.error { border-right-color: var(--danger); }
+.toast.warning { border-right-color: var(--warning); }
+.toast.info { border-right-color: var(--primary); }
+@keyframes slideIn {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+.toast-icon { font-size: 1.1rem; flex-shrink: 0; }
+.toast-message { flex: 1; }
+
+/* ===== Footer ===== */
+footer {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-top: 3rem;
+}
+footer p { margin-bottom: 0.5rem; }
+footer a {
+    color: var(--primary-light);
+    text-decoration: none;
+}
+footer a:hover { text-decoration: underline; }
+
+/* ===== Utilities ===== */
+.hidden { display: none !important; }
+.text-gradient {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .lesson-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2rem; }
+    .hero { padding: 2.5rem 1rem; }
+    .nav-controls { gap: 0.5rem; }
+    .tabs { gap: 0.3rem; }
+    .tab { padding: 0.5rem 1rem; font-size: 0.8rem; }
+    .grid { grid-template-columns: 1fr; }
+    .modal { padding: 1.5rem; }
+    .toast-container { left: 1rem; right: 1rem; max-width: none; }
+    .toast { min-width: 0; }
+}
+
+@media (max-width: 480px) {
+    .user-pill span:not(.avatar):not(.badge-pro) { display: none; }
+    .search-box { flex-direction: column; }
+    .search-box input { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-effects"></div>
+
+<!-- ============================================
+     NAVBAR
+     ============================================ -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="#" class="logo" onclick="location.reload(); return false;">
+            <span class="logo-icon">⚡</span>TunAI<span>Studio</span>
+        </a>
+        <div class="nav-controls">
+            <select class="lang-select" id="langSelect" onchange="changeLang(this.value)">
+                <option value="ar">🇹🇳 العربية</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="fr">🇫🇷 Français</option>
+            </select>
+            <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+            
+            <div id="authButtons" style="display:flex;gap:0.5rem">
+                <button class="btn btn-ghost btn-sm" onclick="openAuth('login')" data-i18n="login">Login</button>
+                <button class="btn btn-primary btn-sm" onclick="openAuth('signup')" data-i18n="signup">Sign Up</button>
+            </div>
+            
+            <div class="user-pill hidden" id="userInfo">
+                <div class="avatar" id="userAvatar">U</div>
+                <span id="userName" style="font-size:0.85rem;font-weight:600">User</span>
+                <span class="badge-pro hidden" id="proBadge">PRO</span>
+                <button class="btn btn-ghost btn-sm" onclick="logout()" style="padding:4px 8px" data-i18n="logout">↪</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ============================================
+     HERO SECTION
+     ============================================ -->
+<section class="hero">
+    <h1 data-i18n="heroTitle">Learn HTML Easily<br><span class="hero-gradient">Generate Code with AI</span></h1>
+    <p data-i18n="heroSub">A Tunisian platform to learn HTML step by step, with a smart assistant that generates any HTML code you need instantly.</p>
+    
+    <div class="usage-bar-container">
+        <div class="usage-info">⚡ <strong id="usageCount">0</strong>/<span id="usageLimit">5</span> <span data-i18n="today">today</span></div>
+        <div class="usage-track"><div class="usage-fill" id="usageFill" style="width:0%"></div></div>
+        <button class="btn btn-premium btn-sm" onclick="showPremium()" id="upgradeBtn" data-i18n="upgrade">⭐ Upgrade</button>
+    </div>
+    
+    <form class="search-box" onsubmit="event.preventDefault();moveToAI()">
+        <span class="search-icon">✨</span>
+        <input type="text" id="heroInput" data-i18n-ph="heroPh" placeholder="What do you want? e.g. 'snake game'">
+        <button type="submit" class="btn btn-primary" data-i18n="generate">Generate</button>
+    </form>
+    
+    <div class="chips">
+        <button class="chip" onclick="setSearch('لعبة ثعبان')">🐍 Snake</button>
+        <button class="chip" onclick="setSearch('آلة حاسبة')">🧮 Calculator</button>
+        <button class="chip" onclick="setSearch('متجر')">🛍️ Shop</button>
+        <button class="chip" onclick="setSearch('نموذج تسجيل دخول')">🔐 Login</button>
+        <button class="chip" onclick="setSearch('قائمة مهام')">✅ Todo</button>
+        <button class="chip" onclick="setSearch('معرض صور')">🖼️ Gallery</button>
+    </div>
+</section>
+
+<!-- ============================================
+     TABS NAVIGATION
+     ============================================ -->
+<div class="tabs">
+    <button class="tab active" onclick="switchTab('learn',this)" data-i18n="tabLearn">📚 Learn</button>
+    <button class="tab" onclick="switchTab('snippets',this)" data-i18n="tabSnippets">💎 Snippets</button>
+    <button class="tab" onclick="switchTab('tunai',this)" data-i18n="tabTunai">🤖 TunAI</button>
+    <button class="tab" onclick="switchTab('dashboard',this)" data-i18n="tabDash">📊 Dashboard</button>
+    <button class="tab" onclick="switchTab('about',this)" data-i18n="tabAbout">ℹ️ About</button>
+</div>
+
+<!-- ============================================
+     LEARN SECTION - 12 Interactive Lessons
+     ============================================ -->
+<section class="section active" id="learn-section">
+    <div class="section-header">
+        <h2 data-i18n="learnTitle">📚 Learn HTML <span class="hero-gradient">Step by Step</span></h2>
+        <p data-i18n="learnSub">12 interactive lessons from basics to advanced</p>
+    </div>
+    <div class="progress-overview">
+        <div class="stat-mini"><div class="val" id="completedCount">0</div><div class="lbl" data-i18n="completed">Completed</div></div>
+        <div class="stat-mini"><div class="val">12</div><div class="lbl" data-i18n="totalLessons">Total Lessons</div></div>
+        <div class="stat-mini"><div class="val" id="progressPct">0%</div><div class="lbl" data-i18n="progress">Progress</div></div>
+        <div class="stat-mini"><div class="val" id="timeSpent">0m</div><div class="lbl" data-i18n="timeSpent">Time Spent</div></div>
+    </div>
+    <div id="lessonsContainer"></div>
+</section>
+
+<!-- ============================================
+     SNIPPETS SECTION - Enhanced
+     ============================================ -->
+<section class="section" id="snippets-section">
+    <div class="section-header">
+        <h2 data-i18n="snippetsTitle">💎 HTML Snippets <span class="hero-gradient">Ready to Copy</span></h2>
+        <p data-i18n="snippetsSub">Professional code snippets for your projects</p>
+    </div>
+    <div class="grid" id="snippetsGrid"></div>
+</section>
+
+<!-- ============================================
+     TUNAI GENERATOR SECTION
+     ============================================ -->
+<section class="section" id="tunai-section">
+    <div class="section-header">
+        <h2 data-i18n="tunaiTitle">🤖 <span class="hero-gradient">TunAI Generator</span></h2>
+        <p data-i18n="tunaiSub">Describe what you want — get production-ready HTML instantly</p>
+    </div>
+    
+    <form class="search-box" onsubmit="event.preventDefault();generateCode()">
+        <span class="search-icon">✨</span>
+        <input type="text" id="aiInput" data-i18n-ph="aiPh" placeholder="Describe the code you want...">
+        <button type="submit" class="btn btn-primary" id="genBtn" data-i18n="generate">Generate</button>
+    </form>
+    
+    <div class="chips">
+        <button class="chip" onclick="setAI('لعبة ثعبان')">🐍 Snake</button>
+        <button class="chip" onclick="setAI('آلة حاسبة')">🧮 Calculator</button>
+        <button class="chip" onclick="setAI('متجر')">🛍️ Shop</button>
+        <button class="chip" onclick="setAI('نموذج تسجيل دخول')">🔐 Login</button>
+        <button class="chip" onclick="setAI('قائمة مهام')">✅ Todo</button>
+        <button class="chip" onclick="setAI('صفحة شخصية')">👤 Profile</button>
+        <button class="chip" onclick="setAI('سيرة ذاتية')">📄 CV</button>
+        <button class="chip" onclick="setAI('معرض صور')">🖼️ Gallery</button>
+        <button class="chip" onclick="setAI('مطعم')">🍽️ Restaurant</button>
+        <button class="chip" onclick="setAI('مدونة')">📝 Blog</button>
+    </div>
+    
+    <div class="ai-result" id="aiResult">
+        <div class="ai-header">
+            <div class="ai-title" id="aiTitle">Generated Code:</div>
+            <div class="ai-actions">
+                <button class="btn btn-success btn-sm" onclick="copyCode()" data-i18n="copy">📋 Copy</button>
+                <button class="btn btn-primary btn-sm" onclick="downloadCode()" data-i18n="download">⬇️ Download</button>
+                <button class="btn btn-ghost btn-sm" onclick="addFav()" data-i18n="fav">❤️ Save</button>
+            </div>
+        </div>
+        <pre class="code-output" id="aiCode"></pre>
+        <div class="preview-frame">
+            <div class="preview-label" data-i18n="livePreview">👁️ LIVE PREVIEW</div>
+            <iframe id="aiPreview"></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     DASHBOARD SECTION
+     ============================================ -->
+<section class="section" id="dashboard-section">
+    <div class="section-header">
+        <h2 data-i18n="dashTitle">📊 <span class="hero-gradient">Dashboard</span></h2>
+        <p data-i18n="dashSub">Your stats, favorites, and activity</p>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-card"><div class="icon">🤖</div><div class="value" id="statGen">0</div><div class="label" data-i18n="generated">Generated</div></div>
+        <div class="stat-card"><div class="icon">❤️</div><div class="value" id="statFav">0</div><div class="label" data-i18n="favorites">Favorites</div></div>
+        <div class="stat-card"><div class="icon">📋</div><div class="value" id="statCopy">0</div><div class="label" data-i18n="copies">Copies</div></div>
+        <div class="stat-card"><div class="icon">🕐</div><div class="value" id="statHist">0</div><div class="label" data-i18n="searches">Searches</div></div>
+    </div>
+    
+    <div class="dashboard-panel">
+        <div class="dashboard-panel-header">
+            <h3>❤️ <span data-i18n="favorites">Favorites</span></h3>
+        </div>
+        <div id="favList"><p class="empty-state" data-i18n="noFav">No favorites yet</p></div>
+    </div>
+    
+    <div class="dashboard-panel">
+        <div class="dashboard-panel-header">
+            <h3>🕐 <span data-i18n="history">Search History</span></h3>
+            <button class="btn btn-ghost btn-sm" onclick="clearHistory()" style="color:var(--danger);border-color:var(--danger)" data-i18n="clearHist">🗑️ Clear</button>
+        </div>
+        <div id="histList"><p class="empty-state" data-i18n="noHist">No history yet</p></div>
+    </div>
+</section>
+
+<!-- ============================================
+     ABOUT SECTION
+     ============================================ -->
+<section class="section" id="about-section">
+    <div class="section-header">
+        <h2 data-i18n="aboutTitle">ℹ️ About <span class="hero-gradient">TunAIStudio</span></h2>
+        <p data-i18n="aboutSub">A Tunisian platform for HTML education and AI code generation</p>
+    </div>
+    <div class="grid">
+        <div class="card"><div class="card-icon">🎓</div><h3 data-i18n="aboutEasy">Easy Learning</h3><p data-i18n="aboutEasyD">Interactive lessons with live preview</p></div>
+        <div class="card"><div class="card-icon">🤖</div><h3 data-i18n="aboutAI">AI Powered</h3><p data-i18n="aboutAID">Generate any HTML in seconds</p></div>
+        <div class="card"><div class="card-icon">🔒</div><h3 data-i18n="aboutSecure">Secure Auth</h3><p data-i18n="aboutSecureD">Google Login + Email verification</p></div>
+        <div class="card"><div class="card-icon">⭐</div><h3 data-i18n="aboutPrem">Premium Plans</h3><p data-i18n="aboutPremD">Unlimited generations for pros</p></div>
+        <div class="card"><div class="card-icon">🌙</div><h3 data-i18n="aboutTheme">Dark/Light Mode</h3><p data-i18n="aboutThemeD">Easy on the eyes, day or night</p></div>
+        <div class="card"><div class="card-icon">🚀</div><h3 data-i18n="aboutFast">Super Fast</h3><p data-i18n="aboutFastD">Single file — no server needed</p></div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 <strong>TunAIStudio</strong> — Made with ❤️ in Tunisia 🇹🇳</p>
+    <p style="font-size:0.75rem;opacity:0.7">Single-file HTML application · No server required</p>
+</footer>
+
+<!-- ============================================
+     AUTH MODAL
+     ============================================ -->
+<div class="modal-overlay" id="authModal">
+    <div class="modal">
+        <div id="authMain">
+            <div class="modal-header">
+                <h3>⚡ <span class="hero-gradient">TunAIStudio</span></h3>
+                <button class="close-btn" onclick="closeAuth()">✕</button>
+            </div>
+            
+            <button class="google-btn" onclick="loginWithGoogle()">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                <span data-i18n="googleLogin">Continue with Google</span>
+            </button>
+            <div class="divider"><span data-i18n="orEmail">or use email</span></div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuth('login',this)" data-i18n="login">Login</button>
+                <button class="auth-tab" onclick="switchAuth('signup',this)" data-i18n="signup">Sign Up</button>
+            </div>
+            
+            <form id="loginForm" onsubmit="event.preventDefault();doLogin()">
+                <div class="form-group"><label class="form-label" data-i18n="email">Email</label><input type="email" class="form-input" id="loginEmail" required placeholder="you@example.com"></div>
+                <div class="form-group"><label class="form-label" data-i18n="password">Password</label><input type="password" class="form-input" id="loginPw" required placeholder="••••••••"></div>
+                <button type="submit" class="btn btn-primary" style="width:100%" data-i18n="login">Login</button>
+            </form>
+            
+            <form id="signupForm" class="hidden" onsubmit="event.preventDefault();doSignup()">
+                <div class="form-group"><label class="form-label" data-i18n="name">Name</label><input type="text" class="form-input" id="signupName" required minlength="2" placeholder="Your name"></div>
+                <div class="form-group"><label class="form-label" data-i18n="email">Email</label><input type="email" class="form-input" id="signupEmail" required placeholder="you@example.com"></div>
+                <div class="form-group"><label class="form-label" data-i18n="passwordReq">Password (8+ chars)</label><input type="password" class="form-input" id="signupPw" required minlength="8" placeholder="Strong password"></div>
+                <button type="submit" class="btn btn-primary" style="width:100%" data-i18n="createAcc">Create Account</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================
+     PREMIUM MODAL
+     ============================================ -->
+<div class="modal-overlay" id="premiumModal">
+    <div class="modal modal-large">
+        <div class="modal-header">
+            <h3 data-i18n="upgradeTitle">⭐ Choose Your Plan</h3>
+            <button class="close-btn" onclick="closePremium()">✕</button>
+        </div>
+        <div class="free-plan">
+            <div class="plan-header"><h3>🆓 Free</h3><span style="color:var(--text-secondary);font-size:0.8rem" data-i18n="current">Current</span></div>
+            <ul class="plan-features">
+                <li>✓ 5 generations / day</li>
+                <li>✓ Basic templates</li>
+                <li>✓ Community support</li>
+                <li>✓ Access to lessons</li>
+            </ul>
+        </div>
+        <div class="premium-plan">
+            <div class="plan-header"><h3>⭐ Premium</h3><span class="plan-price">$9.99/mo</span></div>
+            <ul class="plan-features">
+                <li>✓ <strong>Unlimited</strong> generations</li>
+                <li>✓ <strong>All</strong> premium templates</li>
+                <li>✓ <strong>Priority</strong> support</li>
+                <li>✓ <strong>No</strong> daily limits</li>
+                <li>✓ <strong>Export</strong> projects</li>
+                <li>✓ <strong>Custom</strong> branding</li>
+            </ul>
+            <button class="btn" style="background:white;color:#d97706;width:100%;margin-top:1rem;font-weight:800" onclick="upgrade()" data-i18n="upgradeNow">⭐ Upgrade Now</button>
+        </div>
+        <p style="text-align:center;font-size:0.75rem;color:var(--text-secondary);margin-top:1rem" data-i18n="guarantee">Cancel anytime · 7-day money-back guarantee</p>
+    </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ============================================
+     JAVASCRIPT - Complete Application Logic
+     ============================================ -->
+<script>
+/* ============================================
+   TRANSLATIONS - 3 Languages (AR/EN/FR)
+   ============================================ */
+const i18n = {
+    ar: {
+        login:'تسجيل الدخول', signup:'حساب جديد', logout:'خروج', googleLogin:'المتابعة بحساب Google', orEmail:'أو استخدم البريد',
+        email:'البريد الإلكتروني', password:'كلمة المرور', name:'الاسم', passwordReq:'كلمة المرور (8 أحرف على الأقل)',
+        createAcc:'إنشاء حساب', heroTitle:'تعلم HTML بسهولة<br><span class="hero-gradient">واصنع أكوادك بالذكاء الاصطناعي</span>',
+        heroSub:'منصة تونسية لتعلم HTML خطوة بخطوة، مع مساعد ذكي يولد لك أي كود HTML تحتاجه فوراً.',
+        today:'اليوم', upgrade:'⭐ ترقية', heroPh:'ماذا تريد؟ مثال: "لعبة ثعبان"', generate:'توليد',
+        tabLearn:'📚 التعلم', tabSnippets:'💎 Snippets', tabTunai:'🤖 TunAI', tabDash:'📊 لوحة التحكم', tabAbout:'ℹ️ حول',
+        learnTitle:'📚 تعلم HTML <span class="hero-gradient">خطوة بخطوة</span>',
+        learnSub:'12 درساً تفاعلياً من الأساسيات إلى المتقدم', completed:'مكتمل', totalLessons:'إجمالي الدروس', progress:'التقدم', timeSpent:'الوقت المنقضي',
+        snippetsTitle:'💎 أكواد HTML <span class="hero-gradient">جاهزة للنسخ</span>',
+        snippetsSub:'أكواد احترافية جاهزة لمشاريعك', tunaiTitle:'🤖 <span class="hero-gradient">TunAI Generator</span>',
+        tunaiSub:'صف ما تريد — احصل على كود HTML جاهز فوراً', aiPh:'صف الكود الذي تريده بالتفصيل...',
+        copy:'📋 نسخ', download:'⬇️ تحميل', fav:'❤️ حفظ', livePreview:'👁️ معاينة مباشرة',
+        dashTitle:'📊 <span class="hero-gradient">لوحة التحكم</span>',
+        dashSub:'إحصائياتك ومفضلتك ونشاطك', generated:'تم التوليد', favorites:'المفضلة', copies:'النسخات', searches:'عمليات البحث',
+        noFav:'لا توجد مفضلات بعد', history:'🕐 سجل البحث', noHist:'لا يوجد سجل بعد', clearHist:'🗑️ مسح',
+        aboutTitle:'ℹ️ حول <span class="hero-gradient">TunAIStudio</span>',
+        aboutSub:'منصة تونسية لتعليم HTML وتوليد الأكواد بالذكاء الاصطناعي',
+        aboutEasy:'تعلم سهل', aboutEasyD:'دروس تفاعلية مع معاينة حية', aboutAI:'ذكاء اصطناعي', aboutAID:'توليد أي HTML في ثوانٍ',
+        aboutSecure:'مصادقة آمنة', aboutSecureD:'Google Login + تحقق بالبريد', aboutPrem:'خطط بريميوم', aboutPremD:'توليد غير محدود للمحترفين',
+        aboutTheme:'وضع ليلي/نهاري', aboutThemeD:'مريح للعين ليلاً ونهاراً', aboutFast:'سريع جداً', aboutFastD:'ملف واحد — بدون سيرفر',
+        upgradeTitle:'⭐ اختر خطتك', current:'الحالية', upgradeNow:'⭐ ترقية الآن', guarantee:'إلغاء في أي وقت · ضمان استرداد 7 أيام',
+        toastWelcome:'👋 مرحباً ', toastLogout:'👋 تم تسجيل الخروج', toastGen:'✨ تم التوليد!', toastCopy:'📋 تم النسخ!',
+        toastDownload:'⬇️ تم التحميل!', toastFav:'❤️ تمت الإضافة للمفضلة!', toastUpgrade:'⭐ تم الترقية إلى Premium!',
+        toastLoginFirst:'⚠️ سجل الدخول أولاً', toastLimit:'⚠️ الحد اليومي! قم بالترقية', toastType:'اكتب ما تريد!',
+        toastWrongCreds:'❌ بيانات غير صحيحة', toastVerify:'⚠️ تحقق من بريدك أولاً', toastEmailExists:'❌ البريد مسجل مسبقاً',
+        toastPwShort:'❌ كلمة المرور يجب أن تكون 8 أحرف على الأقل', toastVerified:'🎉 تم التحقق! مرحباً ',
+        darkMode:'🌙', lightMode:'☀️', markComplete:'📌 تعليم كمكتمل', completedLabel:'✓ مكتمل', nextLesson:'⏭️ التالي',
+        exercise:'🎯 تمرين:', codeLabel:'💻 الكود', previewLabel:'👁️ معاينة', copyCode:'📋 نسخ',
+        prevExercise:'التمرين السابق', viewCode:'عرض الكود',
+    },
+    en: {
+        login:'Login', signup:'Sign Up', logout:'Logout', googleLogin:'Continue with Google', orEmail:'or use email',
+        email:'Email', password:'Password', name:'Name', passwordReq:'Password (8+ chars)',
+        createAcc:'Create Account', heroTitle:'Learn HTML Easily<br><span class="hero-gradient">Generate Code with AI</span>',
+        heroSub:'A Tunisian platform to learn HTML step by step, with a smart assistant that generates any HTML code you need instantly.',
+        today:'today', upgrade:'⭐ Upgrade', heroPh:"What do you want? e.g. 'snake game'", generate:'Generate',
+        tabLearn:'📚 Learn', tabSnippets:'💎 Snippets', tabTunai:'🤖 TunAI', tabDash:'📊 Dashboard', tabAbout:'ℹ️ About',
+        learnTitle:'📚 Learn HTML <span class="hero-gradient">Step by Step</span>',
+        learnSub:'12 interactive lessons from basics to advanced', completed:'Completed', totalLessons:'Total Lessons', progress:'Progress', timeSpent:'Time Spent',
+        snippetsTitle:'💎 HTML Snippets <span class="hero-gradient">Ready to Copy</span>',
+        snippetsSub:'Professional code snippets for your projects', tunaiTitle:'🤖 <span class="hero-gradient">TunAI Generator</span>',
+        tunaiSub:'Describe what you want — get production-ready HTML instantly', aiPh:'Describe the code you want...',
+        copy:'📋 Copy', download:'⬇️ Download', fav:'❤️ Save', livePreview:'👁️ LIVE PREVIEW',
+        dashTitle:'📊 <span class="hero-gradient">Dashboard</span>',
+        dashSub:'Your stats, favorites, and activity', generated:'Generated', favorites:'Favorites', copies:'Copies', searches:'Searches',
+        noFav:'No favorites yet', history:'🕐 Search History', noHist:'No history yet', clearHist:'🗑️ Clear',
+        aboutTitle:'ℹ️ About <span class="hero-gradient">TunAIStudio</span>',
+        aboutSub:'A Tunisian platform for HTML education and AI code generation',
+        aboutEasy:'Easy Learning', aboutEasyD:'Interactive lessons with live preview', aboutAI:'AI Powered', aboutAID:'Generate any HTML in seconds',
+        aboutSecure:'Secure Auth', aboutSecureD:'Google Login + Email verification', aboutPrem:'Premium Plans', aboutPremD:'Unlimited generations for pros',
+        aboutTheme:'Dark/Light Mode', aboutThemeD:'Easy on the eyes, day or night', aboutFast:'Super Fast', aboutFastD:'Single file — no server needed',
+        upgradeTitle:'⭐ Choose Your Plan', current:'Current', upgradeNow:'⭐ Upgrade Now', guarantee:'Cancel anytime · 7-day money-back guarantee',
+        toastWelcome:'👋 Welcome ', toastLogout:'👋 Logged out', toastGen:'✨ Generated!', toastCopy:'📋 Copied!',
+        toastDownload:'⬇️ Downloaded!', toastFav:'❤️ Added to favorites!', toastUpgrade:'⭐ Upgraded to Premium!',
+        toastLoginFirst:'⚠️ Login first', toastLimit:'⚠️ Daily limit! Upgrade to Premium', toastType:'Type what you want!',
+        toastWrongCreds:'❌ Wrong credentials', toastVerify:'⚠️ Verify email first', toastEmailExists:'❌ Email already registered',
+        toastPwShort:'❌ Password must be 8+ chars', toastVerified:'🎉 Verified! Welcome ',
+        darkMode:'🌙', lightMode:'☀️', markComplete:'📌 Mark Complete', completedLabel:'✓ Completed', nextLesson:'⏭️ Next',
+        exercise:'🎯 Exercise:', codeLabel:'💻 Code', previewLabel:'👁️ Preview', copyCode:'📋 Copy',
+        prevExercise:'Previous Exercise', viewCode:'View Code',
+    },
+    fr: {
+        login:'Connexion', signup:'Inscription', logout:'Déconnexion', googleLogin:'Continuer avec Google', orEmail:"ou utiliser l'email",
+        email:'Email', password:'Mot de passe', name:'Nom', passwordReq:'Mot de passe (8+ caractères)',
+        createAcc:'Créer un compte', heroTitle:'Apprenez le HTML facilement<br><span class="hero-gradient">Générez du code avec l\'IA</span>',
+        heroSub:"Une plateforme tunisienne pour apprendre le HTML étape par étape, avec un assistant intelligent qui génère instantanément n'importe quel code HTML.",
+        today:"aujourd'hui", upgrade:'⭐ Mettre à niveau', heroPh:'Que voulez-vous ? ex : "jeu serpent"', generate:'Générer',
+        tabLearn:'📚 Apprendre', tabSnippets:'💎 Snippets', tabTunai:'🤖 TunAI', tabDash:'📊 Tableau de bord', tabAbout:'ℹ️ À propos',
+        learnTitle:'📚 Apprendre le HTML <span class="hero-gradient">Étape par étape</span>',
+        learnSub:'12 leçons interactives des bases au niveau avancé', completed:'Terminé', totalLessons:'Total des leçons', progress:'Progression', timeSpent:'Temps passé',
+        snippetsTitle:'💎 Snippets HTML <span class="hero-gradient">Prêts à copier</span>',
+        snippetsSub:'Snippets de code professionnels pour vos projets', tunaiTitle:'🤖 <span class="hero-gradient">TunAI Generator</span>',
+        tunaiSub:'Décrivez ce que vous voulez — obtenez du HTML prêt instantanément', aiPh:'Décrivez le code que vous voulez...',
+        copy:'📋 Copier', download:'⬇️ Télécharger', fav:'❤️ Sauvegarder', livePreview:'👁️ APERÇU EN DIRECT',
+        dashTitle:'📊 <span class="hero-gradient">Tableau de bord</span>',
+        dashSub:'Vos statistiques, favoris et activité', generated:'Généré', favorites:'Favoris', copies:'Copies', searches:'Recherches',
+        noFav:'Aucun favori pour le moment', history:'🕐 Historique des recherches', noHist:'Aucun historique', clearHist:'🗑️ Effacer',
+        aboutTitle:'ℹ️ À propos de <span class="hero-gradient">TunAIStudio</span>',
+        aboutSub:"Une plateforme tunisienne pour l'éducation HTML et la génération de code par IA",
+        aboutEasy:'Apprentissage facile', aboutEasyD:'Leçons interactives avec aperçu en direct', aboutAI:'Propulsé par l\'IA', aboutAID:'Générez n\'importe quel HTML en quelques secondes',
+        aboutSecure:'Authentification sécurisée', aboutSecureD:'Google Login + vérification par email', aboutPrem:'Plans Premium', aboutPremD:'Générations illimitées pour les pros',
+        aboutTheme:'Mode Sombre/Clair', aboutThemeD:'Confortable pour les yeux, jour et nuit', aboutFast:'Ultra rapide', aboutFastD:'Un seul fichier — aucun serveur nécessaire',
+        upgradeTitle:'⭐ Choisissez votre plan', current:'Actuel', upgradeNow:'⭐ Mettre à niveau', guarantee:'Annulation à tout moment · Garantie de remboursement de 7 jours',
+        toastWelcome:'👋 Bienvenue ', toastLogout:'👋 Déconnecté', toastGen:'✨ Généré !', toastCopy:'📋 Copié !',
+        toastDownload:'⬇️ Téléchargé !', toastFav:'❤️ Ajouté aux favoris !', toastUpgrade:'⭐ Mis à niveau vers Premium !',
+        toastLoginFirst:'⚠️ Connectez-vous d\'abord', toastLimit:'⚠️ Limite quotidienne ! Passez à Premium', toastType:'Tapez ce que vous voulez !',
+        toastWrongCreds:'❌ Identifiants incorrects', toastVerify:'⚠️ Vérifiez d\'abord votre email', toastEmailExists:'❌ Email déjà enregistré',
+        toastPwShort:'❌ Le mot de passe doit contenir 8+ caractères', toastVerified:'🎉 Vérifié ! Bienvenue ',
+        darkMode:'🌙', lightMode:'☀️', markComplete:'📌 Marquer terminé', completedLabel:'✓ Terminé', nextLesson:'⏭️ Suivant',
+        exercise:'🎯 Exercice :', codeLabel:'💻 Code', previewLabel:'👁️ Aperçu', copyCode:'📋 Copier',
+        prevExercise:'Exercice précédent', viewCode:'Voir le code',
+    }
+};
+
+let lang = localStorage.getItem('tunai_lang') || 'ar';
+let theme = localStorage.getItem('tunai_theme') || 'dark';
+
+function t(key) { return (i18n[lang] && i18n[lang][key]) || i18n.en[key] || key; }
+
+/* ============================================
+   THEME & LANGUAGE SYSTEM
+   ============================================ */
+function applyLang() {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('langSelect').value = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const v = t(el.dataset.i18n);
+        if(v) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const v = t(el.dataset.i18nPh);
+        if(v) el.placeholder = v;
+    });
+    document.getElementById('themeBtn').textContent = theme === 'dark' ? t('darkMode') : t('lightMode');
+    renderLessons();
+    renderSnippets();
+    updateDash();
+}
+
+function changeLang(l) {
+    lang = l;
+    localStorage.setItem('tunai_lang', l);
+    applyLang();
+    toast(`🌍 ${l === 'ar' ? 'العربية' : l === 'en' ? 'English' : 'Français'}`, 'success');
+}
+
+function toggleTheme() {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('tunai_theme', theme);
+    applyTheme();
+    toast(theme === 'dark' ? '🌙 Dark Mode' : '☀️ Light Mode', 'success');
+}
+
+function applyTheme() {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.getElementById('themeBtn').textContent = theme === 'dark' ? t('darkMode') : t('lightMode');
+}
+
+/* ============================================
+   12 INTERACTIVE LESSONS DATA
+   ============================================ */
+const lessons = [
+    {
+        id: 1,
+        title: "What is HTML?",
+        titleAr: "ما هو HTML؟",
+        level: "beginner",
+        content: "<strong>HTML</strong> = <code>HyperText Markup Language</code>. It's the standard language for creating web pages. HTML describes the <strong>structure</strong> of a web page using a series of elements.",
+        contentAr: "<strong>HTML</strong> = <code>HyperText Markup Language</code>. هي اللغة القياسية لإنشاء صفحات الويب. تصف HTML <strong>بنية</strong> صفحة الويب باستخدام سلسلة من العناصر.",
+        code: `<!DOCTYPE html>
+<html>
+<head>
+    <title>My First Page</title>
+</head>
+<body>
+    <h1>Hello World!</h1>
+    <p>Welcome to my first HTML page.</p>
+</body>
+</html>`,
+        exercise: "Change the h1 text to your name and add a new paragraph about yourself!",
+        exerciseAr: "غير نص h1 إلى اسمك وأضف فقرة جديدة عن نفسك!"
+    },
+    {
+        id: 2,
+        title: "Headings & Paragraphs",
+        titleAr: "العناوين والفقرات",
+        level: "beginner",
+        content: "HTML has 6 heading levels: <code>&lt;h1&gt;</code> (largest) to <code>&lt;h6&gt;</code> (smallest). Paragraphs use the <code>&lt;p&gt;</code> tag.",
+        contentAr: "لدى HTML 6 مستويات من العناوين: <code>&lt;h1&gt;</code> (الأكبر) إلى <code>&lt;h6&gt;</code> (الأصغر). تستخدم الفقرات وسم <code>&lt;p&gt;</code>.",
+        code: `<h1>Main Title</h1>
+<h2>Subtitle</h2>
+<h3>Section Heading</h3>
+
+<p>This is a paragraph of text. It can contain multiple sentences and will wrap automatically.</p>
+
+<p>This is another paragraph. Each paragraph is separated by spacing.</p>`,
+        exercise: "Create a page with h1, h2, h3 headings and 3 different paragraphs!",
+        exerciseAr: "أنشئ صفحة مع عناوين h1، h2، h3 و 3 فقرات مختلفة!"
+    },
+    {
+        id: 3,
+        title: "Text Formatting",
+        titleAr: "تنسيق النصوص",
+        level: "beginner",
+        content: "Use <code>&lt;strong&gt;</code> for bold, <code>&lt;em&gt;</code> for italic, <code>&lt;mark&gt;</code> for highlight, <code>&lt;del&gt;</code> for strikethrough.",
+        contentAr: "استخدم <code>&lt;strong&gt;</code> للعريض، <code>&lt;em&gt;</code> للمائل، <code>&lt;mark&gt;</code> للتمييز، <code>&lt;del&gt;</code> للمشطوب.",
+        code: `<p><strong>Bold text</strong> for importance</p>
+<p><em>Italic text</em> for emphasis</p>
+<p><mark>Highlighted</mark> text stands out</p>
+<p><del>Deleted text</del> shows changes</p>
+<p><small>Small text</small> for fine print</p>
+<p><code>Code snippet</code> inline</p>`,
+        exercise: "Write a sentence using all formatting tags: bold, italic, mark, and code!",
+        exerciseAr: "اكتب جملة باستخدام جميع وسوم التنسيق: عريض، مائل، تمييز، وكود!"
+    },
+    {
+        id: 4,
+        title: "Links",
+        titleAr: "الروابط",
+        level: "beginner",
+        content: "The <code>&lt;a&gt;</code> tag creates hyperlinks. Use <code>href</code> for the URL and <code>target=\"_blank\"</code> to open in a new tab.",
+        contentAr: "وسم <code>&lt;a&gt;</code> ينشئ الروابط التشعبية. استخدم <code>href</code> للرابط و <code>target=\"_blank\"</code> للفتح في تبويب جديد.",
+        code: `<a href="https://google.com">Visit Google</a>
+
+<a href="https://github.com" target="_blank">
+    GitHub (opens in new tab)
+</a>
+
+<a href="mailto:hello@example.com">
+    Send Email
+</a>
+
+<a href="#section1">Jump to Section</a>`,
+        exercise: "Create 3 links: one to your favorite website, one that opens in a new tab, and one email link!",
+        exerciseAr: "أنشئ 3 روابط: واحد لموقعك المفضل، واحد يفتح في تبويب جديد، ورابط بريد إلكتروني!"
+    },
+    {
+        id: 5,
+        title: "Images",
+        titleAr: "الصور",
+        level: "beginner",
+        content: "The <code>&lt;img&gt;</code> tag displays images. Use <code>src</code> for the image URL, <code>alt</code> for accessibility, and <code>width</code> for size.",
+        contentAr: "وسم <code>&lt;img&gt;</code> يعرض الصور. استخدم <code>src</code> لرابط الصورة، <code>alt</code> لإمكانية الوصول، و <code>width</code> للحجم.",
+        code: `<img src="https://picsum.photos/400/250" 
+     alt="Random beautiful image" 
+     width="400">
+
+<img src="https://picsum.photos/200/200?random=2" 
+     alt="Square image" 
+     width="200"
+     style="border-radius: 50%">`,
+        exercise: "Add two images with different sizes and descriptive alt text!",
+        exerciseAr: "أضف صورتين بأحجام مختلفة ونص بديل وصفي!"
+    },
+    {
+        id: 6,
+        title: "Lists",
+        titleAr: "القوائم",
+        level: "beginner",
+        content: "Use <code>&lt;ul&gt;</code> for unordered lists (bullets), <code>&lt;ol&gt;</code> for ordered lists (numbers), and <code>&lt;li&gt;</code> for list items.",
+        contentAr: "استخدم <code>&lt;ul&gt;</code> للقوائم غير المرتبة (نقاط)، <code>&lt;ol&gt;</code> للقوائم المرتبة (أرقام)، و <code>&lt;li&gt;</code> لعناصر القائمة.",
+        code: `<h3>Shopping List (Unordered)</h3>
+<ul>
+    <li>Bread</li>
+    <li>Milk</li>
+    <li>Eggs</li>
+    <li>Cheese</li>
+</ul>
+
+<h3>Recipe Steps (Ordered)</h3>
+<ol>
+    <li>Boil water</li>
+    <li>Add pasta</li>
+    <li>Cook for 10 minutes</li>
+    <li>Drain and serve</li>
+</ol>`,
+        exercise: "Create a shopping list (unordered) and a numbered recipe with 5 steps!",
+        exerciseAr: "أنشئ قائمة تسوق (غير مرتبة) ووصفة مرقمة بـ 5 خطوات!"
+    },
+    {
+        id: 7,
+        title: "Tables",
+        titleAr: "الجداول",
+        level: "intermediate",
+        content: "Tables use <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code> (rows), <code>&lt;th&gt;</code> (header cells), and <code>&lt;td&gt;</code> (data cells).",
+        contentAr: "تستخدم الجداول <code>&lt;table&gt;</code>، <code>&lt;tr&gt;</code> (صفوف)، <code>&lt;th&gt;</code> (خلايا رأس)، و <code>&lt;td&gt;</code> (خلايا بيانات).",
+        code: `<table border="1" cellpadding="10" style="border-collapse: collapse">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Stock</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Laptop</td>
+            <td>$999</td>
+            <td>15</td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>$699</td>
+            <td>42</td>
+        </tr>
+        <tr>
+            <td>Tablet</td>
+            <td>$449</td>
+            <td>28</td>
+        </tr>
+    </tbody>
+</table>`,
+        exercise: "Create a product table with 3 columns and 4 rows of data!",
+        exerciseAr: "أنشئ جدول منتجات بـ 3 أعمدة و 4 صفوف من البيانات!"
+    },
+    {
+        id: 8,
+        title: "Forms",
+        titleAr: "النماذج",
+        level: "intermediate",
+        content: "Forms collect user input using <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;label&gt;</code>, and <code>&lt;button&gt;</code>.",
+        contentAr: "النماذج تجمع مدخلات المستخدم باستخدام <code>&lt;form&gt;</code>، <code>&lt;input&gt;</code>، <code>&lt;label&gt;</code>، و <code>&lt;button&gt;</code>.",
+        code: `<form action="/submit" method="POST">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" 
+           placeholder="you@example.com" required>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" 
+           placeholder="••••••••" required>
+    
+    <label>
+        <input type="checkbox" name="remember">
+        Remember me
+    </label>
+    
+    <button type="submit">Sign In</button>
+</form>`,
+        exercise: "Build a contact form with name, email, and message fields!",
+        exerciseAr: "أنشئ نموذج اتصال بحقول الاسم والبريد والرسالة!"
+    },
+    {
+        id: 9,
+        title: "Div & Span",
+        titleAr: "Div و Span",
+        level: "intermediate",
+        content: "<code>&lt;div&gt;</code> is a block-level container (takes full width), <code>&lt;span&gt;</code> is inline (within text). Used for styling groups of elements.",
+        contentAr: "<code>&lt;div&gt;</code> حاوية على مستوى الكتلة (تأخذ العرض الكامل)، <code>&lt;span&gt;</code> مضمنة (داخل النص). تستخدم لتنسيق مجموعات العناصر.",
+        code: `<div style="background:#6366f1; color:white; 
+            padding:20px; border-radius:10px; margin:10px 0">
+    <h2>Card Title</h2>
+    <p>This is content inside a div container.</p>
+    <p>Price: <span style="color:#ffd700; font-weight:bold">$99</span></p>
+</div>
+
+<div style="background:#ec4899; color:white; 
+            padding:20px; border-radius:10px">
+    <h2>Another Card</h2>
+    <p>Second <span style="text-decoration:underline">styled</span> div</p>
+</div>`,
+        exercise: "Create two colored cards with different content and inline styled spans!",
+        exerciseAr: "أنشئ بطاقتين ملونتين بمحتوى مختلف و spans منسقة!"
+    },
+    {
+        id: 10,
+        title: "Semantic HTML",
+        titleAr: "HTML الدلالي",
+        level: "intermediate",
+        content: "Semantic tags like <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code> give meaning to content for SEO and accessibility.",
+        contentAr: "الوسوم الدلالية مثل <code>&lt;header&gt;</code>، <code>&lt;nav&gt;</code>، <code>&lt;main&gt;</code>، <code>&lt;article&gt;</code>، <code>&lt;footer&gt;</code> تعطي معنى للمحتوى لـ SEO وإمكانية الوصول.",
+        code: `<header style="background:#1e293b; color:white; padding:20px">
+    <h1>My Website</h1>
+    <nav>
+        <a href="#" style="color:white; margin-right:15px">Home</a>
+        <a href="#" style="color:white; margin-right:15px">About</a>
+        <a href="#" style="color:white">Contact</a>
+    </nav>
+</header>
+
+<main style="padding:20px">
+    <article>
+        <h2>Article Title</h2>
+        <p>Article content goes here...</p>
+    </article>
+</main>
+
+<footer style="background:#1e293b; color:white; 
+              padding:15px; text-align:center">
+    <p>© 2026 My Website. All rights reserved.</p>
+</footer>`,
+        exercise: "Restructure a page using all 5 semantic tags: header, nav, main, article, footer!",
+        exerciseAr: "أعد هيكلة صفحة باستخدام جميع الوسوم الدلالية الخمسة: header، nav، main، article، footer!"
+    },
+    {
+        id: 11,
+        title: "Video & Audio",
+        titleAr: "الفيديو والصوت",
+        level: "advanced",
+        content: "HTML5 supports media with <code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code> tags. Use <code>controls</code>, <code>autoplay</code>, <code>muted</code>, and <code>loop</code> attributes.",
+        contentAr: "يدعم HTML5 الوسائط مع وسوم <code>&lt;video&gt;</code> و <code>&lt;audio&gt;</code>. استخدم خصائص <code>controls</code>، <code>autoplay</code>، <code>muted</code>، و <code>loop</code>.",
+        code: `<h3>🎬 Video Player</h3>
+<video width="400" controls>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" 
+            type="video/mp4">
+    Your browser does not support video.
+</video>
+
+<h3>🎵 Audio Player</h3>
+<audio controls>
+    <source src="https://www.w3schools.com/html/horse.mp3" 
+            type="audio/mpeg">
+    Your browser does not support audio.
+</audio>
+
+<h3>🔁 Autoplay Muted Video</h3>
+<video width="300" autoplay muted loop>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4">
+</video>`,
+        exercise: "Embed a video with controls and an audio player with autoplay!",
+        exerciseAr: "ضع فيديو مع عناصر التحكم ومشغل صوت مع التشغيل التلقائي!"
+    },
+    {
+        id: 12,
+        title: "iframe Embed",
+        titleAr: "تضمين iframe",
+        level: "advanced",
+        content: "The <code>&lt;iframe&gt;</code> tag embeds external content like maps, videos, or other websites within your page.",
+        contentAr: "وسم <code>&lt;iframe&gt;</code> يضمن محتوى خارجي مثل الخرائط أو مقاطع الفيديو أو مواقع الويب الأخرى داخل صفحتك.",
+        code: `<h3>🗺️ Embedded Map</h3>
+<iframe 
+    src="https://www.openstreetmap.org/export/embed.html?bbox=10.15%2C36.75%2C10.25%2C36.85&layer=mapnik"
+    width="100%" 
+    height="300"
+    style="border:1px solid #ccc; border-radius:8px">
+</iframe>
+
+<h3>📺 Embedded Content</h3>
+<iframe 
+    src="https://example.com" 
+    width="100%" 
+    height="200"
+    style="border:1px solid #ccc; border-radius:8px">
+</iframe>
+
+<h3>🎮 Game Embed</h3>
+<iframe 
+    src="https://example.com/game" 
+    width="100%" 
+    height="400"
+    style="border:none; border-radius:12px">
+</iframe>`,
+        exercise: "Embed a map of your city and an iframe with your favorite website!",
+        exerciseAr: "ضع خريطة لمدينتك و iframe مع موقعك المفضل!"
+    }
+];
+
+/* ============================================
+   ENHANCED SNIPPETS DATA - 12 Professional Snippets
+   ============================================ */
+const snippets = [
+    {
+        id: 1,
+        title: 'Basic HTML Page',
+        desc: 'Complete HTML5 boilerplate with meta tags and responsive viewport',
+        icon: '📄',
+        level: 'beginner',
+        tags: ['html5', 'boilerplate', 'responsive'],
+        code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My awesome website">
+    <meta name="keywords" content="html, web, website">
+    <meta name="author" content="Your Name">
+    <title>My Website</title>
+</head>
+<body>
+    <h1>Hello World!</h1>
+    <p>Welcome to my website.</p>
+</body>
+</html>`
+    },
+    {
+        id: 2,
+        title: 'Modern Login Form',
+        desc: 'Beautiful login form with gradient background and smooth animations',
+        icon: '🔐',
+        level: 'intermediate',
+        tags: ['form', 'login', 'gradient'],
+        code: `<form style="max-width:400px;margin:40px auto;padding:30px;background:white;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.1)">
+    <h2 style="text-align:center;margin-bottom:24px;color:#333">Welcome Back</h2>
+    <label style="display:block;margin-bottom:6px;color:#555;font-weight:600">Email</label>
+    <input type="email" required placeholder="you@example.com" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;margin-bottom:16px;box-sizing:border-box">
+    <label style="display:block;margin-bottom:6px;color:#555;font-weight:600">Password</label>
+    <input type="password" required placeholder="••••••••" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;margin-bottom:20px;box-sizing:border-box">
+    <button type="submit" style="width:100%;padding:14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer">Sign In</button>
+    <p style="text-align:center;margin-top:16px;color:#777;font-size:14px">No account? <a href="#" style="color:#6366f1;font-weight:600">Sign up</a></p>
+</form>`
+    },
+    {
+        id: 3,
+        title: 'Responsive Navbar',
+        desc: 'Modern navigation bar with logo, links and CTA button',
+        icon: '🧭',
+        level: 'beginner',
+        tags: ['nav', 'responsive', 'menu'],
+        code: `<nav style="background:#1e293b;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.1)">
+    <div style="font-size:22px;font-weight:900;color:#6366f1">⚡ Brand</div>
+    <div style="display:flex;gap:24px">
+        <a href="#" style="color:white;text-decoration:none;font-weight:600">Home</a>
+        <a href="#" style="color:white;text-decoration:none;font-weight:600">About</a>
+        <a href="#" style="color:white;text-decoration:none;font-weight:600">Services</a>
+        <a href="#" style="color:white;text-decoration:none;font-weight:600">Contact</a>
+    </div>
+    <button style="padding:8px 16px;background:#6366f1;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600">Get Started</button>
+</nav>`
+    },
+    {
+        id: 4,
+        title: 'Product Card',
+        desc: 'E-commerce product card with image, badge, price and add-to-cart',
+        icon: '🛍️',
+        level: 'intermediate',
+        tags: ['ecommerce', 'card', 'product'],
+        code: `<div style="max-width:280px;margin:40px auto;background:white;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.1)">
+    <img src="https://picsum.photos/280/200" style="width:100%;height:200px;object-fit:cover">
+    <div style="padding:20px">
+        <span style="display:inline-block;padding:3px 10px;background:#ec4899;color:white;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:8px">NEW</span>
+        <h3 style="margin:0 0 8px;color:#1e293b">Premium Headphones</h3>
+        <p style="color:#64748b;font-size:14px;margin-bottom:12px">High-quality wireless audio</p>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:22px;font-weight:900;color:#6366f1">$299</span>
+            <button style="padding:10px 20px;background:#6366f1;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600">Add to Cart</button>
+        </div>
+    </div>
+</div>`
+    },
+    {
+        id: 5,
+        title: 'Image Gallery Grid',
+        desc: 'Responsive image gallery with hover zoom effects',
+        icon: '🖼️',
+        level: 'intermediate',
+        tags: ['gallery', 'grid', 'images'],
+        code: `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;padding:20px;max-width:1000px;margin:0 auto">
+    <img src="https://picsum.photos/300?1" style="width:100%;height:200px;object-fit:cover;border-radius:12px;transition:transform .3s;cursor:pointer" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <img src="https://picsum.photos/300?2" style="width:100%;height:200px;object-fit:cover;border-radius:12px;transition:transform .3s;cursor:pointer" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <img src="https://picsum.photos/300?3" style="width:100%;height:200px;object-fit:cover;border-radius:12px;transition:transform .3s;cursor:pointer" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <img src="https://picsum.photos/300?4" style="width:100%;height:200px;object-fit:cover;border-radius:12px;transition:transform .3s;cursor:pointer" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <img src="https://picsum.photos/300?5" style="width:100%;height:200px;object-fit:cover;border-radius:12px;transition:transform .3s;cursor:pointer" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    <img src="https://picsum.photos/300?6" style="width:100%;height:200px;object-fit:cover;border-radius:12px;transition:transform .3s;cursor:pointer" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+</div>`
+    },
+    {
+        id: 6,
+        title: 'Pricing Table',
+        desc: '3-tier pricing comparison with highlighted popular plan',
+        icon: '💰',
+        level: 'advanced',
+        tags: ['pricing', 'table', 'business'],
+        code: `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;padding:40px 20px;max-width:1000px;margin:0 auto">
+    <div style="background:white;border-radius:16px;padding:32px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.08)">
+        <h3 style="color:#64748b;margin-bottom:16px">Basic</h3>
+        <div style="font-size:48px;font-weight:900;color:#1e293b">$19<span style="font-size:16px;color:#64748b">/mo</span></div>
+        <ul style="list-style:none;padding:0;margin:24px 0;text-align:left">
+            <li style="padding:8px 0;color:#64748b">✓ 5 Projects</li>
+            <li style="padding:8px 0;color:#64748b">✓ 10GB Storage</li>
+            <li style="padding:8px 0;color:#64748b">✓ Basic Support</li>
+        </ul>
+        <button style="width:100%;padding:12px;background:#6366f1;color:white;border:none;border-radius:10px;font-weight:700;cursor:pointer">Choose Plan</button>
+    </div>
+    <div style="background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:16px;padding:32px;text-align:center;color:white;box-shadow:0 10px 40px rgba(99,102,241,.4);transform:scale(1.05)">
+        <div style="background:rgba(255,255,255,.2);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;display:inline-block;margin-bottom:12px">POPULAR</div>
+        <h3 style="margin-bottom:16px">Pro</h3>
+        <div style="font-size:48px;font-weight:900">$49<span style="font-size:16px;opacity:.8">/mo</span></div>
+        <ul style="list-style:none;padding:0;margin:24px 0;text-align:left">
+            <li style="padding:8px 0">✓ Unlimited Projects</li>
+            <li style="padding:8px 0">✓ 100GB Storage</li>
+            <li style="padding:8px 0">✓ Priority Support</li>
+        </ul>
+        <button style="width:100%;padding:12px;background:white;color:#6366f1;border:none;border-radius:10px;font-weight:700;cursor:pointer">Choose Plan</button>
+    </div>
+    <div style="background:white;border-radius:16px;padding:32px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.08)">
+        <h3 style="color:#64748b;margin-bottom:16px">Enterprise</h3>
+        <div style="font-size:48px;font-weight:900;color:#1e293b">$99<span style="font-size:16px;color:#64748b">/mo</span></div>
+        <ul style="list-style:none;padding:0;margin:24px 0;text-align:left">
+            <li style="padding:8px 0;color:#64748b">✓ Everything in Pro</li>
+            <li style="padding:8px 0;color:#64748b">✓ Custom Features</li>
+            <li style="padding:8px 0;color:#64748b">✓ 24/7 Support</li>
+        </ul>
+        <button style="width:100%;padding:12px;background:#6366f1;color:white;border:none;border-radius:10px;font-weight:700;cursor:pointer">Contact Sales</button>
+    </div>
+</div>`
+    },
+    {
+        id: 7,
+        title: 'Hero Section',
+        desc: 'Modern hero section with gradient background and dual CTAs',
+        icon: '🎯',
+        level: 'intermediate',
+        tags: ['hero', 'landing', 'cta'],
+        code: `<section style="background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);padding:80px 20px;text-align:center;color:white">
+    <div style="max-width:800px;margin:0 auto">
+        <span style="display:inline-block;padding:6px 14px;background:rgba(255,255,255,.2);border-radius:20px;font-size:13px;font-weight:600;margin-bottom:20px">✨ New Release v2.0</span>
+        <h1 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;margin-bottom:20px;line-height:1.2">Build Amazing Websites with Ease</h1>
+        <p style="font-size:1.1rem;opacity:.9;margin-bottom:32px;line-height:1.6">The fastest way to create beautiful, responsive websites. No coding experience required.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <button style="padding:14px 32px;background:white;color:#6366f1;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer">Get Started Free</button>
+            <button style="padding:14px 32px;background:transparent;color:white;border:2px solid white;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer">Watch Demo</button>
+        </div>
+    </div>
+</section>`
+    },
+    {
+        id: 8,
+        title: 'Contact Form',
+        desc: 'Professional contact form with multiple fields and validation',
+        icon: '📧',
+        level: 'intermediate',
+        tags: ['form', 'contact', 'validation'],
+        code: `<form style="max-width:600px;margin:40px auto;padding:40px;background:white;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.1)">
+    <h2 style="text-align:center;margin-bottom:8px;color:#1e293b">Get In Touch</h2>
+    <p style="text-align:center;color:#64748b;margin-bottom:24px">We'd love to hear from you</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <input type="text" placeholder="First Name" required style="padding:12px;border:2px solid #e0e0e0;border-radius:10px">
+        <input type="text" placeholder="Last Name" required style="padding:12px;border:2px solid #e0e0e0;border-radius:10px">
+    </div>
+    <input type="email" placeholder="Email Address" required style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;margin-bottom:12px;box-sizing:border-box">
+    <input type="text" placeholder="Subject" required style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;margin-bottom:12px;box-sizing:border-box">
+    <textarea placeholder="Your Message" rows="5" required style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:10px;margin-bottom:20px;box-sizing:border-box;resize:vertical;font-family:inherit"></textarea>
+    <button type="submit" style="width:100%;padding:14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer">Send Message</button>
+</form>`
+    },
+    {
+        id: 9,
+        title: 'Testimonials',
+        desc: 'Customer reviews section with avatars and star ratings',
+        icon: '⭐',
+        level: 'intermediate',
+        tags: ['testimonials', 'reviews', 'social'],
+        code: `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;padding:40px 20px;max-width:1200px;margin:0 auto">
+    <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.08)">
+        <div style="color:#fbbf24;font-size:20px;margin-bottom:12px">★★★★★</div>
+        <p style="color:#64748b;line-height:1.6;margin-bottom:16px">"Amazing product! Changed the way I work. Highly recommended for everyone."</p>
+        <div style="display:flex;align-items:center;gap:12px">
+            <img src="https://i.pravatar.cc/50?img=1" style="width:48px;height:48px;border-radius:50%">
+            <div>
+                <div style="font-weight:700;color:#1e293b">Sarah Johnson</div>
+                <div style="font-size:13px;color:#64748b">CEO, TechCorp</div>
+            </div>
+        </div>
+    </div>
+    <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.08)">
+        <div style="color:#fbbf24;font-size:20px;margin-bottom:12px">★★★★★</div>
+        <p style="color:#64748b;line-height:1.6;margin-bottom:16px">"The best investment I've made this year. Support team is fantastic!"</p>
+        <div style="display:flex;align-items:center;gap:12px">
+            <img src="https://i.pravatar.cc/50?img=2" style="width:48px;height:48px;border-radius:50%">
+            <div>
+                <div style="font-weight:700;color:#1e293b">Michael Chen</div>
+                <div style="font-size:13px;color:#64748b">Designer, CreativeCo</div>
+            </div>
+        </div>
+    </div>
+    <div style="background:white;border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.08)">
+        <div style="color:#fbbf24;font-size:20px;margin-bottom:12px">★★★★★</div>
+        <p style="color:#64748b;line-height:1.6;margin-bottom:16px">"Incredible features and easy to use. My team loves it!"</p>
+        <div style="display:flex;align-items:center;gap:12px">
+            <img src="https://i.pravatar.cc/50?img=3" style="width:48px;height:48px;border-radius:50%">
+            <div>
+                <div style="font-weight:700;color:#1e293b">Emma Wilson</div>
+                <div style="font-size:13px;color:#64748b">Manager, StartupXYZ</div>
+            </div>
+        </div>
+    </div>
+</div>`
+    },
+    {
+        id: 10,
+        title: 'FAQ Accordion',
+        desc: 'Expandable Q&A section using native details/summary tags',
+        icon: '❓',
+        level: 'beginner',
+        tags: ['faq', 'accordion', 'details'],
+        code: `<div style="max-width:700px;margin:40px auto;padding:20px">
+    <h2 style="text-align:center;margin-bottom:32px;color:#1e293b">Frequently Asked Questions</h2>
+    <details style="background:white;border-radius:12px;padding:20px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer">
+        <summary style="font-weight:700;color:#1e293b;font-size:16px">How do I get started?</summary>
+        <p style="color:#64748b;margin-top:12px;line-height:1.6">Simply sign up for a free account and you can start using all basic features immediately. No credit card required.</p>
+    </details>
+    <details style="background:white;border-radius:12px;padding:20px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer">
+        <summary style="font-weight:700;color:#1e293b;font-size:16px">Can I cancel anytime?</summary>
+        <p style="color:#64748b;margin-top:12px;line-height:1.6">Yes! You can cancel your subscription at any time with no questions asked. We also offer a 7-day money-back guarantee.</p>
+    </details>
+    <details style="background:white;border-radius:12px;padding:20px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer">
+        <summary style="font-weight:700;color:#1e293b;font-size:16px">Do you offer support?</summary>
+        <p style="color:#64748b;margin-top:12px;line-height:1.6">Yes, we offer 24/7 support via email and live chat. Premium users get priority support with faster response times.</p>
+    </details>
+    <details style="background:white;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer">
+        <summary style="font-weight:700;color:#1e293b;font-size:16px">Is there a free trial?</summary>
+        <p style="color:#64748b;margin-top:12px;line-height:1.6">Yes! We offer a 14-day free trial with full access to all Premium features. No credit card required to start.</p>
+    </details>
+</div>`
+    },
+    {
+        id: 11,
+        title: 'Professional Footer',
+        desc: 'Complete website footer with columns, links and social icons',
+        icon: '📌',
+        level: 'intermediate',
+        tags: ['footer', 'layout', 'navigation'],
+        code: `<footer style="background:#1e293b;color:white;padding:60px 20px 20px">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px">
+        <div>
+            <div style="font-size:22px;font-weight:900;color:#6366f1;margin-bottom:12px">⚡ Brand</div>
+            <p style="color:#94a3b8;font-size:14px;line-height:1.6">Building the future of web development, one line of code at a time.</p>
+        </div>
+        <div>
+            <h4 style="margin-bottom:12px">Product</h4>
+            <ul style="list-style:none;padding:0">
+                <li style="margin-bottom:8px"><a href="#" style="color:#94a3b8;text-decoration:none;font-size:14px">Features</a></li>
+                <li style="margin-bottom:8px"><a href="#" style="color:#94a3b8;text-decoration:none;font-size:14px">Pricing</a></li>
+                <li style="margin-bottom:8px"><a href="#" style="color:#94a3b8;text-decoration:none;font-size:14px">Documentation</a></li>
+                <li><a href="#" style="color:#94a3b8;text-decoration:none;font-size:14px">API</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 style="margin-bottom:12px">Company</h4>
+            <ul style="list-style:none;padding:0">
+                <li style="margin-bottom:8px"><a href="#" style="color:#94a3b8;text-decoration:none;font-size:14px">About</a></li>
+                <li style="margin-bottom:8px"><a href="#" style="color:#94a3b8;text-decoration:none;font-size:14px">Blog</a></li>
+                <li style="margin-bottom:8px"><a href="#" style="color:#94a3b8;text-decoration:none;font-size:14px">Careers</a></li>
+                <li><a href="#" style="color:#94a3b8;text-decoration:none;font-size:14px">Contact</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 style="margin-bottom:12px">Connect</h4>
+            <div style="display:flex;gap:12px">
+                <a href="#" style="width:40px;height:40px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:18px">📘</a>
+                <a href="#" style="width:40px;height:40px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:18px">🐦</a>
+                <a href="#" style="width:40px;height:40px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:18px">💼</a>
+            </div>
+        </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:20px;text-align:center;color:#94a3b8;font-size:13px">
+        © 2026 Brand. All rights reserved. · Privacy Policy · Terms of Service
+    </div>
+</footer>`
+    },
+    {
+        id: 12,
+        title: 'Profile Card',
+        desc: 'Modern user profile card with stats and follow button',
+        icon: '👤',
+        level: 'beginner',
+        tags: ['profile', 'card', 'user'],
+        code: `<div style="max-width:320px;margin:40px auto;background:white;border-radius:20px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.1)">
+    <div style="height:120px;background:linear-gradient(135deg,#6366f1,#8b5cf6)"></div>
+    <div style="padding:0 24px 24px;text-align:center;position:relative">
+        <img src="https://i.pravatar.cc/120?img=5" style="width:100px;height:100px;border-radius:50%;border:4px solid white;margin-top:-50px;object-fit:cover">
+        <h3 style="margin:12px 0 4px;color:#1e293b">Alex Morgan</h3>
+        <p style="color:#64748b;font-size:14px;margin-bottom:16px">Full Stack Developer</p>
+        <p style="color:#64748b;font-size:13px;line-height:1.6;margin-bottom:20px">Passionate about creating beautiful and functional web experiences.</p>
+        <div style="display:flex;justify-content:space-around;padding-top:16px;border-top:1px solid #e0e0e0">
+            <div>
+                <div style="font-weight:900;color:#1e293b;font-size:18px">234</div>
+                <div style="font-size:12px;color:#64748b">Posts</div>
+            </div>
+            <div>
+                <div style="font-weight:900;color:#1e293b;font-size:18px">12K</div>
+                <div style="font-size:12px;color:#64748b">Followers</div>
+            </div>
+            <div>
+                <div style="font-weight:900;color:#1e293b;font-size:18px">890</div>
+                <div style="font-size:12px;color:#64748b">Following</div>
+            </div>
+        </div>
+        <button style="width:100%;margin-top:20px;padding:12px;background:#6366f1;color:white;border:none;border-radius:10px;font-weight:700;cursor:pointer">Follow</button>
+    </div>
+</div>`
+    }
+];
+
+/* ============================================
+   TUNAI TEMPLATES - 10+ Dynamic Templates
+   ============================================ */
+function genTemplate(type) {
+    const c = ['#6366f1','#8b5cf6'];
+    const T = {
+        'لعبة ثعبان': `<!DOCTYPE html><html><head><title>Snake Game</title><style>body{font-family:sans-serif;background:#0f0f1e;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;margin:0}canvas{background:#1a1f35;border:3px solid ${c[0]};border-radius:12px;box-shadow:0 0 30px rgba(99,102,241,.5)}.go{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.95);padding:40px;border-radius:20px;text-align:center;display:none;border:2px solid ${c[0]}}.go.v{display:block}button{padding:12px 32px;background:${c[0]};color:white;border:none;border-radius:10px;cursor:pointer;margin-top:20px;font-weight:700}</style></head><body><h1>🐍 Snake Game</h1><div style="font-size:24px;margin:12px 0;color:${c[0]};font-weight:900">Score: <span id="s">0</span></div><canvas id="c" width="400" height="400"></canvas><div class="go" id="g"><h2>Game Over!</h2><p>Final Score: <span id="f">0</span></p><button onclick="location.reload()">Play Again</button></div><script>var cv=document.getElementById('c'),cx=cv.getContext('2d'),b=20,sn=[{x:9*b,y:10*b}],d='R',fd={x:Math.floor(Math.random()*20)*b,y:Math.floor(Math.random()*20)*b},sc=0;document.addEventListener('keydown',function(e){if(e.key=='ArrowLeft'&&d!='R')d='L';else if(e.key=='ArrowUp'&&d!='D')d='U';else if(e.key=='ArrowRight'&&d!='L')d='R';else if(e.key=='ArrowDown'&&d!='U')d='D';});function dr(){cx.fillStyle='#1a1f35';cx.fillRect(0,0,400,400);cx.fillStyle='#ef4444';cx.fillRect(fd.x,fd.y,b,b);for(var i=0;i<sn.length;i++){cx.fillStyle=i===0?'${c[0]}':'${c[1]}';cx.fillRect(sn[i].x,sn[i].y,b,b);}var x=sn[0].x,y=sn[0].y;if(d=='L')x-=b;if(d=='U')y-=b;if(d=='R')x+=b;if(d=='D')y+=b;if(x==fd.x&&y==fd.y){sc++;document.getElementById('s').textContent=sc;fd={x:Math.floor(Math.random()*20)*b,y:Math.floor(Math.random()*20)*b};}else sn.pop();var h={x:x,y:y},cl=x<0||x>=400||y<0||y>=400;for(var j=0;j<sn.length;j++)if(sn[j].x==x&&sn[j].y==y)cl=true;if(cl){document.getElementById('f').textContent=sc;document.getElementById('g').classList.add('v');clearInterval(g);return;}sn.unshift(h);}var g=setInterval(dr,100);<\/script></body></html>`,
+        'آلة حاسبة': `<!DOCTYPE html><html><head><title>Calculator</title><style>body{font-family:sans-serif;background:linear-gradient(135deg,${c[0]},${c[1]});min-height:100vh;display:flex;align-items:center;justify-content:center;margin:0}.calc{background:#1a1f35;border-radius:20px;padding:24px;width:340px;box-shadow:0 20px 60px rgba(0,0,0,.5)}.d{background:#0a0a0f;color:white;padding:24px;border-radius:12px;text-align:right;font-size:36px;font-weight:700;margin-bottom:16px;min-height:90px}.b{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}button{padding:20px;border:none;border-radius:12px;font-size:22px;font-weight:700;cursor:pointer;background:#2d3354;color:white;transition:all .2s}button:hover{background:#3d4374;transform:translateY(-2px)}button.o{background:${c[0]}}button.e{background:${c[1]};grid-column:span 2}button.x{background:#ef4444}</style></head><body><div class="calc"><div class="d" id="d">0</div><div class="b"><button class="x" onclick="cl()">C</button><button onclick="a('(')">(</button><button onclick="a(')')">)</button><button class="o" onclick="a('/')">÷</button><button onclick="a('7')">7</button><button onclick="a('8')">8</button><button onclick="a('9')">9</button><button class="o" onclick="a('*')">×</button><button onclick="a('4')">4</button><button onclick="a('5')">5</button><button onclick="a('6')">6</button><button class="o" onclick="a('-')">−</button><button onclick="a('1')">1</button><button onclick="a('2')">2</button><button onclick="a('3')">3</button><button class="o" onclick="a('+')">+</button><button onclick="a('0')">0</button><button onclick="a('.')">.</button><button class="e" onclick="calc()">=</button></div></div><script>var d=document.getElementById('d'),cu='';function a(v){cu+=v;d.textContent=cu;}function cl(){cu='';d.textContent='0';}function calc(){try{cu=eval(cu).toString();d.textContent=cu;}catch(e){d.textContent='Error';cu='';}}<\/script></body></html>`,
+        'قائمة مهام': `<!DOCTYPE html><html><head><title>Todo App</title><style>body{font-family:sans-serif;background:#f5f7fa;padding:40px 20px;margin:0}.app{max-width:500px;margin:0 auto;background:white;border-radius:20px;padding:32px;box-shadow:0 10px 40px rgba(0,0,0,.1)}h1{text-align:center;color:#333;margin-bottom:24px}.form{display:flex;gap:8px;margin-bottom:24px}input{flex:1;padding:14px;border:2px solid #e0e0e0;border-radius:12px;font-size:16px}input:focus{outline:none;border-color:${c[0]}}button{padding:14px 24px;background:${c[0]};color:white;border:none;border-radius:12px;cursor:pointer;font-weight:700}ul{list-style:none;padding:0}li{display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;margin-bottom:8px;background:#f9f9f9;transition:all .3s}li:hover{background:#f0f0f0}li.done span{text-decoration:line-through;color:#999}li span{flex:1;font-weight:600}.del{background:#ef4444;padding:6px 12px;font-size:14px;border-radius:8px}</style></head><body><div class="app"><h1>✅ My Todo List</h1><form class="form" id="f"><input type="text" id="i" placeholder="Add a new task..."><button type="submit">Add</button></form><ul id="l"><li><input type="checkbox" onchange="tg(this)"><span>Learn HTML</span><button class="del" onclick="dl(this)">×</button></li></ul></div><script>var f=document.getElementById('f'),i=document.getElementById('i'),l=document.getElementById('l');f.addEventListener('submit',function(e){e.preventDefault();var t=i.value.trim();if(!t)return;var li=document.createElement('li');li.innerHTML='<input type="checkbox" onchange="tg(this)"><span>'+t+'</span><button class="del" onclick="dl(this)">×</button>';l.appendChild(li);i.value='';});function tg(c){c.parentElement.classList.toggle('done');}function dl(b){b.parentElement.remove();}<\/script></body></html>`,
+        'متجر': `<!DOCTYPE html><html><head><title>Shop</title><style>body{font-family:sans-serif;background:#f5f5f5;margin:0;padding:20px}header{background:white;padding:20px;border-radius:12px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}.logo{font-size:24px;font-weight:900;color:${c[0]}}.cart{background:${c[0]};color:white;padding:8px 16px;border-radius:20px;font-weight:700}.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}.product{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:transform .3s}.product:hover{transform:translateY(-4px)}.product img{width:100%;height:200px;object-fit:cover}.info{padding:16px}.info h3{margin:0 0 8px;color:#333}.price{font-size:22px;font-weight:900;color:${c[0]};margin:8px 0}button{background:${c[0]};color:white;border:none;padding:10px;border-radius:8px;cursor:pointer;font-weight:700;width:100%;transition:all .3s}button:hover{background:#4f46e5;transform:translateY(-1px)}</style></head><body><header><div class="logo">🛍️ My Shop</div><div class="cart">🛒 <span id="c">0</span></div></header><div class="products" id="p"></div><script>var items=[{n:'T-Shirt',p:29,i:'https://picsum.photos/300?1'},{n:'Sneakers',p:79,i:'https://picsum.photos/300?2'},{n:'Watch',p:199,i:'https://picsum.photos/300?3'},{n:'Backpack',p:59,i:'https://picsum.photos/300?4'}];var cart=0;items.forEach(function(p){var d=document.createElement('div');d.className='product';d.innerHTML='<img src="'+p.i+'"><div class="info"><h3>'+p.n+'</h3><div class="price">$'+p.p+'</div><button onclick="add()">Add to Cart</button></div>';document.getElementById('p').appendChild(d);});function add(){cart++;document.getElementById('c').textContent=cart;}<\/script></body></html>`,
+        'نموذج تسجيل دخول': `<!DOCTYPE html><html><head><title>Login</title><style>body{font-family:sans-serif;background:linear-gradient(135deg,${c[0]},${c[1]});min-height:100vh;display:flex;align-items:center;justify-content:center;margin:0}.box{background:white;padding:40px;border-radius:24px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.3)}h2{text-align:center;margin-bottom:30px;color:#333}.g{margin-bottom:20px}label{display:block;margin-bottom:8px;color:#555;font-weight:600}input{width:100%;padding:14px;border:2px solid #e0e0e0;border-radius:12px;font-size:16px;box-sizing:border-box;transition:all .3s}input:focus{outline:none;border-color:${c[0]};box-shadow:0 0 0 3px rgba(99,102,241,.1)}button{width:100%;padding:16px;background:linear-gradient(135deg,${c[0]},${c[1]});color:white;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;transition:all .3s}button:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(99,102,241,.4)}.ft{text-align:center;margin-top:20px;color:#777}.ft a{color:${c[0]};font-weight:600;text-decoration:none}</style></head><body><div class="box"><h2>🔐 Welcome Back</h2><form onsubmit="alert('Welcome!');return false;"><div class="g"><label>Email</label><input type="email" placeholder="you@example.com" required></div><div class="g"><label>Password</label><input type="password" placeholder="••••••••" required></div><button type="submit">Sign In</button></form><div class="ft">No account? <a href="#">Sign up</a></div></div></body></html>`,
+        'صفحة شخصية': `<!DOCTYPE html><html><head><title>Profile</title><style>body{font-family:sans-serif;background:#0f0f1e;color:white;margin:0;padding:40px 20px}.p{max-width:800px;margin:0 auto;text-align:center}.av{width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,${c[0]},${c[1]});margin:0 auto 24px;display:flex;align-items:center;justify-content:center;font-size:64px;box-shadow:0 0 40px rgba(99,102,241,.5)}h1{font-size:44px;margin:0 0 8px}.ti{color:#888;font-size:18px;margin-bottom:24px}.bi{max-width:600px;margin:0 auto 32px;color:#aaa;line-height:1.8;font-size:16px}.so{display:flex;justify-content:center;gap:16px;margin-bottom:40px}.so a{width:52px;height:52px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;font-size:24px;transition:all .3s}.so a:hover{background:${c[0]};transform:translateY(-3px)}.sk{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:40px}.s{background:rgba(255,255,255,.05);padding:24px;border-radius:16px;border:1px solid rgba(255,255,255,.1);transition:all .3s}.s:hover{border-color:${c[0]};transform:translateY(-3px)}</style></head><body><div class="p"><div class="av">👨‍💻</div><h1>Your Name</h1><p class="ti">Web Developer · Designer</p><p class="bi">Hi! I'm a passionate web developer who loves creating beautiful and functional websites.</p><div class="so"><a href="#">📘</a><a href="#">🐦</a><a href="#">📷</a><a href="#">💼</a><a href="#">🐙</a></div><h2 style="margin-bottom:20px">Skills</h2><div class="sk"><div class="s">⚡ HTML5</div><div class="s">🎨 CSS3</div><div class="s">💛 JavaScript</div><div class="s">⚛️ React</div><div class="s">🐍 Python</div><div class="s">🚀 Node.js</div></div></div></body></html>`,
+        'سيرة ذاتية': `<!DOCTYPE html><html><head><title>CV</title><style>body{font-family:sans-serif;background:#f0f0f0;padding:40px 20px;margin:0}.cv{max-width:850px;margin:0 auto;background:white;box-shadow:0 10px 40px rgba(0,0,0,.15);display:grid;grid-template-columns:260px 1fr;border-radius:16px;overflow:hidden}.sb{background:#2c3e50;color:white;padding:36px}.mn{padding:36px}.av{width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,${c[0]},${c[1]});margin:0 auto 24px;display:flex;align-items:center;justify-content:center;font-size:52px;box-shadow:0 8px 24px rgba(0,0,0,.3)}h1{text-align:center;font-size:26px;margin-bottom:6px}.sub{text-align:center;color:#aaa;margin-bottom:30px}.se{margin-bottom:28px}.se h3{border-bottom:2px solid ${c[0]};padding-bottom:8px;margin-bottom:14px;font-size:16px}.ba{background:rgba(255,255,255,.2);height:6px;border-radius:3px;overflow:hidden;margin:6px 0 12px}.fl{height:100%;background:${c[0]}}.mn h2{color:#2c3e50;margin-bottom:14px}.it{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid #eee}.it h4{color:${c[0]};margin:0 0 4px}.it .d{color:#888;font-size:13px;margin-bottom:6px}</style></head><body><div class="cv"><div class="sb"><div class="av">👤</div><h1>Your Name</h1><p class="sub">Web Developer</p><div class="se"><h3>📞 Contact</h3><p style="font-size:13px;margin-bottom:8px">📧 you@mail.com</p><p style="font-size:13px;margin-bottom:8px">📱 +216 123 456</p><p style="font-size:13px">📍 Tunisia</p></div><div class="se"><h3>💡 Skills</h3><p style="font-size:13px">HTML5</p><div class="ba"><div class="fl" style="width:95%"></div></div><p style="font-size:13px">CSS3</p><div class="ba"><div class="fl" style="width:90%"></div></div><p style="font-size:13px">JavaScript</p><div class="ba"><div class="fl" style="width:85%"></div></div><p style="font-size:13px">React</p><div class="ba"><div class="fl" style="width:80%"></div></div></div><div class="se"><h3>🌍 Languages</h3><p style="font-size:13px;margin-bottom:4px">Arabic — Native</p><p style="font-size:13px;margin-bottom:4px">French — Fluent</p><p style="font-size:13px">English — Good</p></div></div><div class="mn"><h2>About Me</h2><p>Web developer with 5+ years of experience in building modern web applications.</p><h2>💼 Experience</h2><div class="it"><h4>Senior Developer</h4><p class="d">Tech Company · 2022 - Present</p><p>Lead frontend development for multiple projects.</p></div><div class="it"><h4>Web Developer</h4><p class="d">Digital Agency · 2019 - 2022</p><p>Built responsive websites for 30+ clients.</p></div><h2>🎓 Education</h2><div class="it"><h4>CS Degree</h4><p class="d">University · 2015 - 2019</p><p>Bachelor in Computer Science</p></div></div></div></body></html>`,
+        'معرض صور': `<!DOCTYPE html><html><head><title>Gallery</title><style>body{font-family:sans-serif;background:#0f0f1e;color:white;padding:40px 20px;margin:0}h1{text-align:center;margin-bottom:40px;font-size:40px}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;max-width:1200px;margin:0 auto}.item{position:relative;overflow:hidden;border-radius:16px;aspect-ratio:1;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.3)}.item img{width:100%;height:100%;object-fit:cover;transition:transform .6s}.item:hover img{transform:scale(1.15)}.ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9),transparent 60%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:24px}.item:hover .ov{opacity:1}.ov p{font-size:16px;font-weight:700}</style></head><body><h1>🖼️ Photo Gallery</h1><div class="g" id="g"></div><script>var g=document.getElementById('g');for(var i=1;i<=9;i++){var d=document.createElement('div');d.className='item';d.innerHTML='<img src="https://picsum.photos/400?'+i+'"><div class="ov"><p>Photo '+i+'</p></div>';g.appendChild(d);}<\/script></body></html>`,
+        'مطعم': `<!DOCTYPE html><html><head><title>Restaurant</title><style>body{font-family:sans-serif;background:#1a1a2e;color:white;padding:40px 20px;margin:0}h1{text-align:center;font-size:52px;color:#ffd700;margin-bottom:12px;text-shadow:0 2px 10px rgba(255,215,0,.3)}.su{text-align:center;color:#aaa;margin-bottom:50px;font-size:16px}.sec{max-width:800px;margin:0 auto 50px}.sec h2{font-size:32px;border-bottom:2px solid #ffd700;padding-bottom:12px;margin-bottom:24px}.item{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px dashed rgba(255,255,255,.1)}.item:hover{background:rgba(255,255,255,.03)}.info h3{margin:0 0 4px;color:#ffd700;font-size:18px}.info p{margin:0;color:#aaa;font-size:14px}.price{font-size:22px;font-weight:900;color:#ffd700}</style></head><body><h1>🍽️ Authentic Restaurant</h1><p class="su">Traditional cuisine with modern flair</p><div class="sec"><h2>🥗 Appetizers</h2><div class="item"><div class="info"><h3>Grilled Salad</h3><p>Fresh vegetables with olive oil</p></div><div class="price">$8</div></div><div class="item"><div class="info"><h3>Traditional Brik</h3><p>Crispy pastry with egg</p></div><div class="price">$6</div></div></div><div class="sec"><h2>🍲 Main Courses</h2><div class="item"><div class="info"><h3>Couscous</h3><p>Traditional with lamb</p></div><div class="price">$25</div></div><div class="item"><div class="info"><h3>Grilled Fish</h3><p>Fresh catch of the day</p></div><div class="price">$28</div></div></div><div class="sec"><h2>🍰 Desserts</h2><div class="item"><div class="info"><h3>Baklava</h3><p>Honey and pistachios</p></div><div class="price">$7</div></div></div></body></html>`,
+        'مدونة': `<!DOCTYPE html><html><head><title>Blog</title><style>body{font-family:sans-serif;background:#fafafa;margin:0;padding:40px 20px}.blog{max-width:800px;margin:0 auto}h1{text-align:center;font-size:48px;margin-bottom:40px;color:#333}.post{background:white;border-radius:20px;overflow:hidden;margin-bottom:32px;box-shadow:0 4px 24px rgba(0,0,0,.08);transition:transform .3s}.post:hover{transform:translateY(-4px)}.img{width:100%;height:300px;background:linear-gradient(135deg,${c[0]},${c[1]});display:flex;align-items:center;justify-content:center;font-size:80px}.content{padding:28px}.meta{color:#999;font-size:13px;margin-bottom:10px}.title{font-size:26px;margin:0 0 12px;color:#333}.ex{color:#666;line-height:1.7;margin-bottom:16px}.more{color:${c[0]};text-decoration:none;font-weight:700;font-size:14px}</style></head><body><div class="blog"><h1>📝 My Blog</h1><article class="post"><div class="img">🚀</div><div class="content"><div class="meta">📅 June 2026 · 👤 Author</div><h2 class="title">How to Learn Programming</h2><p class="ex">In this article, I share my journey of learning programming from scratch and the strategies that helped me succeed.</p><a href="#" class="more">Read more →</a></div></article><article class="post"><div class="img">💡</div><div class="content"><div class="meta">📅 May 2026 · 👤 Author</div><h2 class="title">10 Tips for Web Design</h2><p class="ex">Essential tips to create beautiful and functional websites that engage users and deliver results.</p><a href="#" class="more">Read more →</a></div></article></div></body></html>`
+    };
+    return T[type] || `<!DOCTYPE html><html><head><title>${type}</title><style>body{font-family:sans-serif;background:linear-gradient(135deg,${c[0]},${c[1]});min-height:100vh;display:flex;align-items:center;justify-content:center;margin:0;padding:40px 20px;color:white}.box{background:rgba(255,255,255,.1);backdrop-filter:blur(20px);padding:50px;border-radius:24px;max-width:700px;width:100%;text-align:center;border:1px solid rgba(255,255,255,.2);box-shadow:0 20px 60px rgba(0,0,0,.3)}h1{font-size:48px;margin-bottom:20px}p{font-size:18px;opacity:.9;line-height:1.7;margin-bottom:30px}button{padding:14px 40px;background:white;color:${c[0]};border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;transition:all .3s}button:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.2)}</style></head><body><div class="box"><h1>${type}</h1><p>Custom code generated for you. Edit and customize as needed!</p><button onclick="alert('👋 Hello!')">Try it</button></div></body></html>`;
+}
+
+function matchType(p) {
+    p = p.toLowerCase();
+    if(/ثعبان|snake/.test(p)) return 'لعبة ثعبان';
+    if(/حاسبة|calculator/.test(p)) return 'آلة حاسبة';
+    if(/مهام|todo|task/.test(p)) return 'قائمة مهام';
+    if(/متجر|shop|store/.test(p)) return 'متجر';
+    if(/تسجيل|دخول|login|signin/.test(p)) return 'نموذج تسجيل دخول';
+    if(/شخصي|profile/.test(p)) return 'صفحة شخصية';
+    if(/سيرة|cv|resume/.test(p)) return 'سيرة ذاتية';
+    if(/معرض|gallery|صور/.test(p)) return 'معرض صور';
+    if(/مطعم|restaurant|menu/.test(p)) return 'مطعم';
+    if(/مدونة|blog/.test(p)) return 'مدونة';
+    return p;
+}
+
+/* ============================================
+   STATE MANAGEMENT
+   ============================================ */
+let curCode = '', curTitle = '';
+const L_FREE = 5, L_PRO = 999999;
+
+function getUsage() {
+    const today = new Date().toDateString();
+    const d = JSON.parse(localStorage.getItem('tunai_usage')||'{}');
+    return d.date === today ? d : {date:today, count:0};
+}
+
+function updateUsage() {
+    const u = JSON.parse(localStorage.getItem('tunai_user')||'null');
+    const isPro = u && u.premium;
+    const lim = isPro ? L_PRO : L_FREE;
+    const usage = getUsage();
+    document.getElementById('usageCount').textContent = usage.count;
+    document.getElementById('usageLimit').textContent = isPro ? '∞' : lim;
+    const pct = isPro ? 0 : (usage.count/lim)*100;
+    const fill = document.getElementById('usageFill');
+    fill.style.width = pct + '%';
+    fill.className = 'usage-fill' + (pct>=80 ? ' danger' : pct>=60 ? ' warning' : '');
+    document.getElementById('upgradeBtn').classList.toggle('hidden', isPro);
+}
+
+function canGenerate() {
+    const u = JSON.parse(localStorage.getItem('tunai_user')||'null');
+    if(!u) return false;
+    if(u.premium) return true;
+    return getUsage().count < L_FREE;
+}
+
+function incUsage() {
+    const u = getUsage();
+    u.count++;
+    localStorage.setItem('tunai_usage', JSON.stringify(u));
+    updateUsage();
+}
+
+/* ============================================
+   AUTH SYSTEM
+   ============================================ */
+function openAuth(tab='login') {
+    document.getElementById('authModal').classList.add('visible');
+    switchAuth(tab);
+}
+
+function closeAuth() {
+    document.getElementById('authModal').classList.remove('visible');
+}
+
+function switchAuth(tab, btn) {
+    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    else document.querySelector(`.auth-tab[onclick*="${tab}"]`)?.classList.add('active');
+    document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
+    document.getElementById('signupForm').classList.toggle('hidden', tab !== 'signup');
+}
+
+function loginWithGoogle() {
+    const user = {
+        id: 'google_'+Date.now(),
+        name: 'Google User',
+        email: 'user@gmail.com',
+        provider: 'google',
+        verified: true,
+        premium: false
+    };
+    localStorage.setItem('tunai_user', JSON.stringify(user));
+    updateUI();
+    closeAuth();
+    toast(t('toastWelcome') + 'Google User!', 'success');
+}
+
+function doLogin() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pw = document.getElementById('loginPw').value;
+    const users = JSON.parse(localStorage.getItem('tunai_users')||'[]');
+    const u = users.find(x => x.email === email && x.password === pw);
+    if(!u) { toast(t('toastWrongCreds'), 'error'); return; }
+    if(!u.verified) { toast(t('toastVerify'), 'warning'); return; }
+    localStorage.setItem('tunai_user', JSON.stringify(u));
+    toast(t('toastWelcome') + u.name + '!', 'success');
+    closeAuth();
+    updateUI();
+    updateUsage();
+}
+
+function doSignup() {
+    const name = document.getElementById('signupName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const pw = document.getElementById('signupPw').value;
+    if(pw.length < 8) { toast(t('toastPwShort'), 'error'); return; }
+    const users = JSON.parse(localStorage.getItem('tunai_users')||'[]');
+    if(users.find(x => x.email === email)) { toast(t('toastEmailExists'), 'error'); return; }
+    const newUser = {id:Date.now(), name, email, password:pw, verified:true, premium:false};
+    users.push(newUser);
+    localStorage.setItem('tunai_users', JSON.stringify(users));
+    localStorage.setItem('tunai_user', JSON.stringify(newUser));
+    toast(t('toastVerified') + name + '!', 'success');
+    closeAuth();
+    updateUI();
+    updateUsage();
+}
+
+function logout() {
+    localStorage.removeItem('tunai_user');
+    updateUI();
+    updateUsage();
+    toast(t('toastLogout'), 'success');
+}
+
+function updateUI() {
+    const u = JSON.parse(localStorage.getItem('tunai_user')||'null');
+    const btns = document.getElementById('authButtons');
+    const info = document.getElementById('userInfo');
+    const pro = document.getElementById('proBadge');
+    if(u) {
+        btns.style.display = 'none';
+        info.classList.remove('hidden');
+        document.getElementById('userName').textContent = u.name;
+        document.getElementById('userAvatar').textContent = u.name.charAt(0).toUpperCase();
+        pro.classList.toggle('hidden', !u.premium);
+    } else {
+        btns.style.display = 'flex';
+        info.classList.add('hidden');
+    }
+}
+
+/* ============================================
+   PREMIUM SYSTEM
+   ============================================ */
+function showPremium() {
+    document.getElementById('premiumModal').classList.add('visible');
+}
+
+function closePremium() {
+    document.getElementById('premiumModal').classList.remove('visible');
+}
+
+function upgrade() {
+    const u = JSON.parse(localStorage.getItem('tunai_user')||'null');
+    if(!u) return;
+    u.premium = true;
+    localStorage.setItem('tunai_user', JSON.stringify(u));
+    const users = JSON.parse(localStorage.getItem('tunai_users')||'[]');
+    const idx = users.findIndex(x => x.email === u.email);
+    if(idx >= 0) {
+        users[idx].premium = true;
+        localStorage.setItem('tunai_users', JSON.stringify(users));
+    }
+    closePremium();
+    updateUI();
+    updateUsage();
+    toast(t('toastUpgrade'), 'success');
+}
+
+/* ============================================
+   RENDER LESSONS
+   ============================================ */
+function renderLessons() {
+    const container = document.getElementById('lessonsContainer');
+    if(!container) return;
+    const completed = JSON.parse(localStorage.getItem('tunai_lessons_completed')||'[]');
+    const isAr = lang === 'ar';
+    
+    container.innerHTML = lessons.map(l => {
+        const done = completed.includes(l.id);
+        const title = isAr ? l.titleAr : l.title;
+        const content = isAr ? l.contentAr : l.content;
+        const exercise = isAr ? l.exerciseAr : l.exercise;
+        
+        return `
+        <div class="lesson-card ${done?'completed':''}" id="lesson-${l.id}">
+            <div class="lesson-num">${l.id}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;flex-wrap:wrap;gap:0.5rem">
+                <h3 class="lesson-title">${title}</h3>
+                <span class="lesson-badge ${l.level}">${l.level.toUpperCase()}</span>
+            </div>
+            <div class="lesson-content">${content}</div>
+            <div class="lesson-grid">
+                <div class="code-preview">
+                    <div class="code-header">
+                        <span>${t('codeLabel')}</span>
+                        <button class="btn btn-ghost btn-sm" style="padding:2px 8px;font-size:0.7rem" onclick="navigator.clipboard.writeText(\`${l.code.replace(/`/g,'\\`').replace(/\\/g,'\\\\')}\`);toast('${t('toastCopy')}','success')">${t('copyCode')}</button>
+                    </div>
+                    <pre>${l.code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>
+                </div>
+                <div class="live-preview">
+                    <div class="preview-header" style="background:#f5f5f5;color:#666;border-bottom:1px solid #ddd">${t('previewLabel')}</div>
+                    <iframe srcdoc="${l.code.replace(/"/g,'&quot;')}"></iframe>
+                </div>
+            </div>
+            <div class="exercise"><strong>${t('exercise')}</strong> ${exercise}</div>
+            <div class="lesson-actions">
+                <button class="btn ${done?'btn-ghost':'btn-primary'} btn-sm" onclick="toggleLesson(${l.id})">
+                    ${done ? t('completedLabel') : t('markComplete')}
+                </button>
+                <button class="btn btn-ghost btn-sm" onclick="scrollToNext(${l.id})">${t('nextLesson')}</button>
+            </div>
+        </div>`;
+    }).join('');
+    
+    updateProgress();
+}
+
+function toggleLesson(id) {
+    const completed = JSON.parse(localStorage.getItem('tunai_lessons_completed')||'[]');
+    const idx = completed.indexOf(id);
+    if(idx > -1) {
+        completed.splice(idx, 1);
+    } else {
+        completed.push(id);
+        toast('🎉 ' + t('completedLabel'), 'success');
+    }
+    localStorage.setItem('tunai_lessons_completed', JSON.stringify(completed));
+    renderLessons();
+}
+
+function scrollToNext(id) {
+    const next = document.getElementById('lesson-' + (id + 1));
+    if(next) {
+        next.scrollIntoView({behavior:'smooth', block:'start'});
+    } else {
+        toast('🏆 All lessons completed!', 'success');
+    }
+}
+
+function updateProgress() {
+    const completed = JSON.parse(localStorage.getItem('tunai_lessons_completed')||'[]');
+    const pct = Math.round((completed.length / lessons.length) * 100);
+    const el1 = document.getElementById('completedCount');
+    const el2 = document.getElementById('progressPct');
+    if(el1) el1.textContent = completed.length;
+    if(el2) el2.textContent = pct + '%';
+}
+
+/* ============================================
+   RENDER SNIPPETS - Enhanced
+   ============================================ */
+function renderSnippets() {
+    const grid = document.getElementById('snippetsGrid');
+    if(!grid) return;
+    
+    grid.innerHTML = snippets.map(s => {
+        const levelClass = 'level-' + s.level;
+        const levelText = s.level.charAt(0).toUpperCase() + s.level.slice(1);
+        const previewCode = s.code.substring(0, 200).replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+        const tagsHtml = s.tags.map(tag => `<span class="snippet-tag">#${tag}</span>`).join('');
+        
+        return `
+        <div class="snippet-card">
+            <div class="snippet-header">
+                <div class="snippet-icon">${s.icon}</div>
+                <span class="snippet-level ${levelClass}">${levelText}</span>
+            </div>
+            <h3 class="snippet-title">${s.title}</h3>
+            <p class="snippet-desc">${s.desc}</p>
+            <div class="snippet-tags">${tagsHtml}</div>
+            <div class="snippet-preview">
+                <pre>${previewCode}...</pre>
+            </div>
+            <div class="snippet-actions">
+                <button class="btn btn-ghost btn-sm" onclick="copySnippet(${s.id})">${t('copyCode')}</button>
+                <button class="btn btn-primary btn-sm" onclick="viewSnippet(${s.id})">${t('viewCode')}</button>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function copySnippet(id) {
+    const snippet = snippets.find(s => s.id === id);
+    if(!snippet) {
+        toast('❌ Snippet not found', 'error');
+        return;
+    }
+    
+    if(navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(snippet.code).then(() => {
+            toast('✅ ' + t('toastCopy'), 'success');
+            const s = JSON.parse(localStorage.getItem('tunai_stats')||'{}');
+            s.copy = (s.copy || 0) + 1;
+            localStorage.setItem('tunai_stats', JSON.stringify(s));
+            updateDash();
+        }).catch(() => {
+            fallbackCopy(snippet.code);
+        });
+    } else {
+        fallbackCopy(snippet.code);
+    }
+}
+
+function viewSnippet(id) {
+    const snippet = snippets.find(s => s.id === id);
+    if(!snippet) return;
+    
+    curCode = snippet.code;
+    curTitle = snippet.title;
+    
+    // Switch to TunAI tab and show the code
+    const tunaiTab = document.querySelector('.tab[onclick*="tunai"]');
+    if(tunaiTab) switchTab('tunai', tunaiTab);
+    
+    document.getElementById('aiTitle').textContent = '✨ ' + snippet.title;
+    document.getElementById('aiCode').textContent = snippet.code;
+    document.getElementById('aiPreview').srcdoc = snippet.code;
+    document.getElementById('aiResult').classList.add('visible');
+    
+    toast('📂 Loaded: ' + snippet.title, 'success');
+}
+
+function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        toast('✅ ' + t('toastCopy'), 'success');
+        const s = JSON.parse(localStorage.getItem('tunai_stats')||'{}');
+        s.copy = (s.copy || 0) + 1;
+        localStorage.setItem('tunai_stats', JSON.stringify(s));
+        updateDash();
+    } catch(e) {
+        toast('❌ Copy failed', 'error');
+    }
+    document.body.removeChild(textarea);
+}
+
+/* ============================================
+   CODE GENERATION
+   ============================================ */
+function generateCode() {
+    const u = JSON.parse(localStorage.getItem('tunai_user')||'null');
+    if(!u) {
+        toast(t('toastLoginFirst'), 'warning');
+        openAuth('login');
+        return;
+    }
+    if(!canGenerate()) {
+        toast(t('toastLimit'), 'warning');
+        showPremium();
+        return;
+    }
+    
+    const input = document.getElementById('aiInput').value.trim();
+    if(!input) {
+        toast(t('toastType'), 'warning');
+        return;
+    }
+    
+    const btn = document.getElementById('genBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>';
+    
+    setTimeout(() => {
+        const type = matchType(input);
+        const code = genTemplate(type);
+        curCode = code;
+        curTitle = type;
+        
+        document.getElementById('aiTitle').textContent = '✨ ' + type;
+        document.getElementById('aiCode').textContent = code;
+        document.getElementById('aiPreview').srcdoc = code;
+        document.getElementById('aiResult').classList.add('visible');
+        
+        incUsage();
+        
+        const hist = JSON.parse(localStorage.getItem('tunai_history')||'[]');
+        hist.unshift({q:input, t:type, d:Date.now()});
+        if(hist.length > 20) hist.pop();
+        localStorage.setItem('tunai_history', JSON.stringify(hist));
+        
+        const stats = JSON.parse(localStorage.getItem('tunai_stats')||'{}');
+        stats.gen = (stats.gen || 0) + 1;
+        localStorage.setItem('tunai_stats', JSON.stringify(stats));
+        
+        updateDash();
+        toast(t('toastGen'), 'success');
+        
+        btn.disabled = false;
+        btn.textContent = t('generate');
+    }, 500);
+}
+
+function copyCode() {
+    if(!curCode) return;
+    navigator.clipboard.writeText(curCode).then(() => {
+        const s = JSON.parse(localStorage.getItem('tunai_stats')||'{}');
+        s.copy = (s.copy || 0) + 1;
+        localStorage.setItem('tunai_stats', JSON.stringify(s));
+        updateDash();
+        toast(t('toastCopy'), 'success');
+    });
+}
+
+function downloadCode() {
+    if(!curCode) return;
+    const blob = new Blob([curCode], {type:'text/html'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'tunaistudio-generated.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    toast(t('toastDownload'), 'success');
+}
+
+function addFav() {
+    if(!curCode) return;
+    const f = JSON.parse(localStorage.getItem('tunai_fav')||'[]');
+    if(f.find(x => x.title === curTitle)) {
+        toast('⚠️ Already in favorites', 'warning');
+        return;
+    }
+    f.unshift({id:Date.now(), title:curTitle, code:curCode, date:Date.now()});
+    localStorage.setItem('tunai_fav', JSON.stringify(f));
+    updateDash();
+    toast(t('toastFav'), 'success');
+}
+
+/* ============================================
+   DASHBOARD
+   ============================================ */
+function updateDash() {
+    const s = JSON.parse(localStorage.getItem('tunai_stats')||'{}');
+    const f = JSON.parse(localStorage.getItem('tunai_fav')||'[]');
+    const h = JSON.parse(localStorage.getItem('tunai_history')||'[]');
+    
+    const el1 = document.getElementById('statGen');
+    const el2 = document.getElementById('statFav');
+    const el3 = document.getElementById('statCopy');
+    const el4 = document.getElementById('statHist');
+    if(el1) el1.textContent = s.gen || 0;
+    if(el2) el2.textContent = f.length;
+    if(el3) el3.textContent = s.copy || 0;
+    if(el4) el4.textContent = h.length;
+    
+    const favList = document.getElementById('favList');
+    if(favList) {
+        if(f.length === 0) {
+            favList.innerHTML = `<p class="empty-state">${t('noFav')}</p>`;
+        } else {
+            favList.innerHTML = f.slice(0, 10).map(x => `
+                <div class="list-item">
+                    <div class="list-item-info">
+                        <div class="list-item-title">${x.title}</div>
+                        <div class="list-item-meta">${new Date(x.date).toLocaleString()}</div>
+                    </div>
+                    <div class="list-item-actions">
+                        <button class="btn btn-primary btn-sm" onclick="loadFav(${x.id})">📂</button>
+                        <button class="btn btn-ghost btn-sm" onclick="rmFav(${x.id})" style="color:var(--danger)">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+    
+    const histList = document.getElementById('histList');
+    if(histList) {
+        if(h.length === 0) {
+            histList.innerHTML = `<p class="empty-state">${t('noHist')}</p>`;
+        } else {
+            histList.innerHTML = h.slice(0, 10).map(x => `
+                <div class="list-item">
+                    <div class="list-item-info">
+                        <div class="list-item-title">${x.q}</div>
+                        <div class="list-item-meta">${new Date(x.d).toLocaleString()}</div>
+                    </div>
+                    <button class="btn btn-ghost btn-sm" onclick="setAI('${x.q.replace(/'/g,"\\'")}')">🔁</button>
+                </div>
+            `).join('');
+        }
+    }
+}
+
+function loadFav(id) {
+    const f = JSON.parse(localStorage.getItem('tunai_fav')||'[]');
+    const x = f.find(y => y.id === id);
+    if(!x) return;
+    curCode = x.code;
+    curTitle = x.title;
+    document.getElementById('aiTitle').textContent = '✨ ' + x.title + ' (Favorite)';
+    document.getElementById('aiCode').textContent = x.code;
+    document.getElementById('aiPreview').srcdoc = x.code;
+    document.getElementById('aiResult').classList.add('visible');
+    const tb = document.querySelector('.tab[onclick*="tunai"]');
+    if(tb) switchTab('tunai', tb);
+    toast('📂 Loaded from favorites', 'success');
+}
+
+function rmFav(id) {
+    const f = JSON.parse(localStorage.getItem('tunai_fav')||'[]');
+    localStorage.setItem('tunai_fav', JSON.stringify(f.filter(x => x.id !== id)));
+    updateDash();
+    toast('🗑️ Removed', 'success');
+}
+
+function clearHistory() {
+    if(confirm('Clear all history?')) {
+        localStorage.removeItem('tunai_history');
+        updateDash();
+        toast('🗑️ History cleared', 'success');
+    }
+}
+
+/* ============================================
+   UI HELPERS
+   ============================================ */
+function switchTab(name, btn) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(name + '-section').classList.add('active');
+    if(name === 'dashboard') updateDash();
+}
+
+function setSearch(txt) {
+    document.getElementById('heroInput').value = txt;
+    moveToAI();
+}
+
+function setAI(txt) {
+    document.getElementById('aiInput').value = txt;
+    const tb = document.querySelector('.tab[onclick*="tunai"]');
+    if(tb) switchTab('tunai', tb);
+    setTimeout(generateCode, 200);
+}
+
+function moveToAI() {
+    const txt = document.getElementById('heroInput').value.trim();
+    if(!txt) return;
+    document.getElementById('aiInput').value = txt;
+    const tb = document.querySelector('.tab[onclick*="tunai"]');
+    if(tb) switchTab('tunai', tb);
+    setTimeout(generateCode, 300);
+}
+
+function toast(msg, type='success') {
+    const el = document.createElement('div');
+    el.className = 'toast ' + type;
+    const icons = {
+        success: '✅',
+        error: '❌',
+        warning: '⚠️',
+        info: 'ℹ️'
+    };
+    el.innerHTML = `<span class="toast-icon">${icons[type] || '✅'}</span><span class="toast-message">${msg}</span>`;
+    document.getElementById('toastContainer').appendChild(el);
+    setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transition = 'opacity .3s';
+        setTimeout(() => el.remove(), 300);
+    }, 3000);
+}
+
+/* ============================================
+   INITIALIZATION
+   ============================================ */
+document.getElementById('langSelect').value = lang;
+applyTheme();
+applyLang();
+
+updateUI();
+updateUsage();
+renderLessons();
+renderSnippets();
+
+document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') {
+        closeAuth();
+        closePremium();
+    }
+});
+
+document.getElementById('authModal').addEventListener('click', e => {
+    if(e.target.id === 'authModal') closeAuth();
+});
+
+document.getElementById('premiumModal').addEventListener('click', e => {
+    if(e.target.id === 'premiumModal') closePremium();
+});
+
+console.log('⚡ TunAIStudio v5.0 — Production Ready');
+console.log('📚 12 Interactive Lessons');
+console.log('💎 12 Professional Snippets');
+console.log('🤖 10+ AI Templates');
+console.log('🌍 3 Languages (AR/EN/FR)');
+console.log('🌙☀️ Dark/Light Mode');
+</script>
+</body>
+</html>
